@@ -232,3 +232,7 @@ body {
 .comment-sub-part{
     float: right;
 }
+
+.user-data, .user-paged-list, .form-user-searching{
+    overflow: hidden;
+}
