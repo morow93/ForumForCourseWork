@@ -1,0 +1,36 @@
+﻿@model BeginApplication.Models.CommentsWithThemeModel
+
+@{
+    ViewBag.Title = "Тема № " + Model.Theme.ThemeId;
+}
+
+<div class="theme topic-theme">
+    <div class="theme-main-part">
+        <div class="theme-header">
+            <div class="theme-header-user">@Model.Theme.UserName</div>
+            <div class="theme-header-date">Время @Model.Theme.CreationDate.ToShortTimeString() Дата @Model.Theme.CreationDate.ToShortDateString()</div>
+        </div>
+        <div class="theme-body">
+            <div class="theme-body-first">
+                @Html.Partial("_Avatar", Model.Theme.UserId)
+            </div>
+            <div class="theme-body-second">
+                <p>Название темы :</p>
+                <p>@Model.Theme.ThemeTitle</p>
+                <p>Содержание :</p>
+                <p>@Model.Theme.ThemeText</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_CommentsMenu", Model)
+@Html.Partial("_PagedComments", Model)
+@if (Model.TotalItems > 0) 
+{ 
+    @Html.Partial("_CommentsMenu", Model) 
+}
+@if (Request.IsAuthenticated)
+{
+    @Html.Action("_AddComment", "Forum", new { th = Model.Theme.ThemeId })
+}

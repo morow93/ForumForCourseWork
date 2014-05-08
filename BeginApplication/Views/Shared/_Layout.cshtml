@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />    
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />  
+    <script src="/Scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery.unobtrusive-ajax.js" type="text/javascript"></script>
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>   
+    <div class="container">
+        @if (Roles.IsUserInRole("admin"))
+        {
+            <div id="admin-section">
+                @Html.ActionLink("Администрирование", "Index", new { controller = "Admin" }, htmlAttributes: new { id = "admin-tools" })
+            </div>
+        }
+        <div id="header-section">
+            <p id="logo-pic">Лого</p>
+            <p id="site-name">@Html.ActionLink("Главная страница", "Index", "Home")</p>
+            @Html.Partial("_LoginPartial")
+        </div>
+        <div id="body-section">
+
+            @TempData["Message"]
+            <span class="success">@TempData["success"]</span>
+            <span class="failure">@TempData["failure"]</span>
+
+            @RenderBody()
+        </div>
+    </div>
+    <div id="footer-wrapper">
+        <div id="footer-section">
+            <div class="right-reserved">
+                <p>&copy; @DateTime.Now.Year - Все права защищены.</p>
+            </div>
+            <div class="feedback">
+                <p>@Html.ActionLink("Обратная связь", "Contact", "Home")</p>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/MyJavaScript.js" type="text/javascript"></script>
+</body>
+</html>

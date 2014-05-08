@@ -1,0 +1,16 @@
+﻿@model BeginApplication.Models.ThemesModel
+
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="navigation-section">
+    <p class="navigation-cell">@Html.ActionLink("Форум", "Index", "Forum")</p>
+    <p class="navigation-cell">@Html.ActionLink("Контакты", "Contact", "Home")</p>
+    <p class="navigation-cell">О сайте</p>
+</div>
+<div class="content-wrapper">
+    <h2>Недавние темы</h2>
+</div>
+
+@Html.Partial("_Themes", Model.Themes)

@@ -1,0 +1,19 @@
+﻿@model BeginApplication.Models.ThemesWithSectionModel
+
+@if (Model != null)
+{
+    <div class="themes">
+        @foreach (var theme in Model.PagedThemes)
+        {
+            <div class="theme">
+                @Html.Partial("_Theme", theme)
+                <div class="theme-sub-part">
+                    @if (Roles.IsUserInRole("moder") || Roles.IsUserInRole("admin"))
+                    {
+                        @Html.ActionLink("Удалить тему", "RemoveTheme", "Forum", new { id = theme.ThemeId, section = Model.Section.SectionId, path = Request.Url.AbsoluteUri }, new { @class = "del-theme-ref" })
+                    }
+                </div>           
+            </div>
+        }
+    </div>
+}

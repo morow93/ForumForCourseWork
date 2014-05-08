@@ -1,0 +1,98 @@
+﻿@model BeginApplication.Models.ManagementUsersModel
+
+@{
+    ViewBag.Title = "Управление пользователями.";
+}
+
+@using (Html.BeginForm("GetUsers", "Admin", FormMethod.Get))
+{
+    <text>
+        Поиск по имени пользователя/по почте : @Html.TextBox("searchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Поиск" />
+    </text>
+}
+@if (Model.TotalItems != 0)
+{ 
+    <table>
+        <tr>
+            <th>
+                @Html.ActionLink("Имя пользователя", "GetUsers", new 
+                { 
+                    sortOrder = ViewBag.UserNameSort, 
+                    currentFilter = ViewBag.CurrentFilter
+                })
+            </th>
+            <th>
+                @Html.ActionLink("Электронный адрес", "GetUsers", new
+                {
+                    sortOrder = ViewBag.EmailSort,
+                    currentFilter = ViewBag.CurrentFilter
+                })
+            </th>
+            <th>
+                @Html.ActionLink("Дата регистрации", "GetUsers", new 
+                {
+                    sortOrder = ViewBag.RegistrationSort,
+                    currentFilter = ViewBag.CurrentFilter 
+                })
+            </th>
+            <th>
+                Назначить роль
+            </th>
+        </tr>
+        @foreach (var item in Model.PagedUsers)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.RegistrationDate)
+                </td>
+                <td>
+                    @Html.Action("GetChangeRoleUrl", "Admin", new { id = item.UserId, path = Request.Url.AbsoluteUri })
+                </td>
+                <td>
+                    @Html.ActionLink("Удалить", "DeleteUser", new { id = item.UserId })
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <text>Ничего не найдено</text>
+}
+
+@if (Model.TotalItems  > 10)
+{ 
+    <div class="theme-menu-page" style="float: left;">
+        @Html.PagedListPager(
+    
+            (IPagedList)Model.PagedUsers,
+            
+            page => Url.Action("GetUsers", "Admin", new
+            {
+                page,
+                sortOrder = ViewBag.CurrentSort,
+                currentFilter = ViewBag.CurrentFilter
+            }),
+
+            new PagedListRenderOptions
+            {
+                LinkToFirstPageFormat = String.Format("<< Первая страница"),
+                LinkToPreviousPageFormat = String.Format("<"),
+                LinkToNextPageFormat = String.Format(">"),
+                LinkToLastPageFormat = String.Format("Последняя страница >>"),
+                MaximumPageNumbersToDisplay = 1,
+                DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
+                DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded
+            }
+        )    
+    </div>
+}

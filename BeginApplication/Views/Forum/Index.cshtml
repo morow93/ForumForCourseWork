@@ -1,0 +1,18 @@
+﻿@model BeginApplication.Models.SectionsModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Разделы форума</h2>
+
+@foreach (var forumSection in Model.Sections)
+{
+    <div class="forum-section">
+        <p class="forum-section-cell">
+            @Html.ActionLink(forumSection.SectionTitle, "Section", "Forum", new { id = (int)forumSection.SectionId }, null )
+        </p>
+        <p class="forum-section-cell">Количество тем : @forumSection.ThemeCount</p>
+        <p class="forum-section-cell">Количество сообщений : @forumSection.CommentCount</p>
+    </div>
+}

@@ -1,0 +1,48 @@
+﻿@model BeginApplication.Models.PrivateCabinetModel
+
+@{
+    ViewBag.Title = "Личный кабинет";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Личный кабинет</h2>
+
+<div class="private-cabinet">
+    <div class="first-column">
+        Аватар
+        <div id="avatar-target">
+            @if (Model.Image == null)
+            {
+                <img src="avatar.jpg" width="100" height="100" />
+            }
+            else
+            {
+                <div id="ava-target">
+                    @Html.Partial("_Avatar", WebSecurity.CurrentUserId)
+                </div>
+            }           
+        </div>
+    </div>
+    <div class="second-column">
+        <ul>
+            <li>@Html.ActionLink("Изменить пароль", "ChangePassword", "Account")</li>
+            <li>@Html.ActionLink("Настроки приватности", "EditPrivateProperties", "Account")</li>
+            <li>
+                <a id="changeAvatarRef" href="#">Сменить аватар</a>
+            </li>         
+        </ul>
+        <fieldset class="changeAvatar">
+            @using (Html.BeginForm("ChangeAvatar", "Account", null, FormMethod.Post, new { Model, enctype = "multipart/form-data" }))
+            {
+                <input type="file" name="file" />
+                <input type="submit" value="OK" />
+            }
+        </fieldset>
+        
+    </div>
+    <div class="third-column">
+        <p>Рейтинг : @Model.UserRating </p>
+        <p>Дата регистрации : @Model.RegistrationDate.ToShortDateString()</p> 
+        <p>Время регистрации : @Model.RegistrationDate.ToShortTimeString()</p>
+    </div>
+</div>

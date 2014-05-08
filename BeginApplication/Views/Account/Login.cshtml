@@ -1,0 +1,49 @@
+﻿@model BeginApplication.Models.LoginModel
+
+@{
+    ViewBag.Title = "Вход";
+}
+
+<h2>Выполнить вход</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    
+    <fieldset>
+        <legend>Форма авторизации</legend>
+        
+        <div class="editor-label">
+            @Html.LabelFor(m => m.UserName)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.UserName)
+            @Html.ValidationMessageFor(m => m.UserName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Password)
+        </div>
+        <div class="editor-field">
+            @Html.PasswordFor(m => m.Password)
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
+        
+        <div class="form-group"> 
+            @Html.CheckBoxFor(m => m.RememberMe)           
+            @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+        </div>
+
+        <input type="submit" value="Выполнить вход" />
+    </fieldset>
+    
+    <div class="alternative-links">
+        @Html.ActionLink("Зарегистрируйтесь", "Register"), если у Вас нет учетной записи. <br />
+        @Html.ActionLink("Восстановите пароль", "ForgotPassword"), если Вы его забыли.
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

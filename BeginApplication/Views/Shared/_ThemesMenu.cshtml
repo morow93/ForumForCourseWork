@@ -1,0 +1,36 @@
+﻿@model BeginApplication.Models.ThemesWithSectionModel
+
+@if (User.Identity.IsAuthenticated || Model.TotalItems > 10)
+{ 
+    <div class="theme-menu">
+        <div class="theme-menu-add">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <p>
+                    @Html.ActionLink("Добавить тему", "AddTheme", "Forum", new { id = Model.Section.SectionId }, null)
+                </p>
+            }
+        </div>
+        <div class="theme-menu-page">
+            @if (Model.TotalItems > 10)
+            {
+                @Html.PagedListPager(
+                    (IPagedList)Model.PagedThemes,
+                    page => Url.Action("Section", "Forum", new { id = Model.Section.SectionId, page }),
+                    new PagedListRenderOptions
+                    {
+                        LinkToFirstPageFormat = String.Format("<< Первая страница"),
+                        LinkToPreviousPageFormat = String.Format("<"),
+                        LinkToNextPageFormat = String.Format(">"),
+                        LinkToLastPageFormat = String.Format("Последняя страница >>"),
+                        MaximumPageNumbersToDisplay = 1,
+                        DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                        DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                        DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
+                        DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded
+                    }
+                )
+            }
+        </div>
+    </div>
+}

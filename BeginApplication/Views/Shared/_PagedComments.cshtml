@@ -1,0 +1,60 @@
+﻿@model BeginApplication.Models.CommentsWithThemeModel 
+
+@if (Model != null)
+{
+    <div class="theme-comments">
+        @foreach (var c in Model.PagedComments)
+        {           
+            <div class="comment">
+				<div class="c-left">
+					<div class="cl-user">
+						@c.UserName
+					</div>
+					<div class="cl-avatar">
+                        @Html.Partial("_Avatar", c.UserId)
+					</div>
+				</div>
+				<div class="c-right">
+					<div class="cr-header">
+						<div class="crh-date-time">
+							Время @c.CreationDate.ToShortTimeString() Дата @c.CreationDate.ToShortDateString()
+						</div>
+                        @if (Request.IsAuthenticated)
+                        {
+                            var target = "id" + c.CommentId.ToString();
+                                
+                            <div class="crh-vote-button">								    
+                                @using (Ajax.BeginForm("_GetCommentData", "Forum", new BeginApplication.Models.CommentInfo(c), new AjaxOptions { UpdateTargetId = target, InsertionMode = InsertionMode.Replace }, null))
+                                {
+                                    <div class="crh-vote" id="@target">
+                                        @Html.Partial("_GetCommentData", c)
+                                    </div>
+                                    <div class="crh-button">
+                                        <input type="submit" value="Проголосовать" />
+                                    </div>                                        
+                                }								    
+							</div>                            
+                        }
+                        else
+                        {  
+                            <div class="crh-vote-button">
+                                <div class="crh-vote">
+                                    @Html.Partial("_GetCommentData", c)
+                                </div>
+                            </div>
+                        }
+					</div>
+					<div class="cr-body">
+						@c.CommentText
+					</div>
+				</div>  
+			</div>		
+            <div class="comment-sub-part">
+                @if (Roles.IsUserInRole("moder") || Roles.IsUserInRole("admin"))
+                {
+                    @Html.ActionLink("Удалить комментарий", "RemoveComment", "Forum", new { id = c.CommentId, theme = Model.Theme.ThemeId , path = Request.Url.AbsoluteUri }, new { @class = "del-comment-ref"})
+                }
+            </div>
+        }
+    </div>
+}

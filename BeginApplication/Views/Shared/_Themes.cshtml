@@ -1,0 +1,16 @@
+﻿@model List<BeginApplication.Models.ThemeInfo>
+
+@if (Model != null)
+{
+    <div class="themes">
+        @foreach (var theme in Model)
+        {
+            <div class="theme">
+                @Html.Partial("_Theme", theme)
+            </div>
+        }
+    </div>
+}
+
+
+

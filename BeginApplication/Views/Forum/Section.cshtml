@@ -1,0 +1,14 @@
+﻿@model BeginApplication.Models.ThemesWithSectionModel
+
+@{
+    ViewBag.Title = "Раздел № " + Model.Section.SectionId;
+}
+
+<h2>@Model.Section.SectionTitle. Темы</h2>
+
+@Html.Partial("_ThemesMenu", Model)
+@Html.Partial("_PagedThemes", Model)
+@if (Model.TotalItems > 0)
+{
+    @Html.Partial("_ThemesMenu", Model)
+}
