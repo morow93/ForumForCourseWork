@@ -1,7 +1,5 @@
 ﻿@model BeginApplication.Models.UserModel
 
-@TempData["message"]
-
 @if (Model != null)
 { 
     Model.Target = "user" + Model.UserId;         
@@ -20,7 +18,13 @@
             @Html.Action("GetChangeRoleUrl", "Admin", new { id = Model.UserId, path = Request.Url.AbsoluteUri })
         </td>
         <td>
-            @Ajax.ActionLink("Удалить", "RemoveUser", "Admin", Model, new AjaxOptions { UpdateTargetId = Model.Target, HttpMethod = "GET", InsertionMode = InsertionMode.Replace }, new { @class = "del-ref" })
+            @Ajax.ActionLink("Удалить", "RemoveUser", "Admin", Model, new AjaxOptions 
+            { 
+                UpdateTargetId = Model.Target, 
+                HttpMethod = "GET", 
+                InsertionMode = InsertionMode.Replace,
+                OnFailure = "OnFailureRemoveUser" 
+            }, new { @class = "del-user-ref" })
         </td>
     </tr>
 }

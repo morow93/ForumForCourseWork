@@ -1,0 +1,27 @@
+﻿@model BeginApplication.Models.ChangeSectionModel
+
+@{
+    ViewBag.Title = "Добавить раздел";
+}
+
+@using (Ajax.BeginForm("CreateSection", "Admin", Model, new AjaxOptions
+    {
+        HttpMethod = "POST",
+        UpdateTargetId = "here-target",
+        OnFailure = "OnFailureCreateSection", 
+        OnSuccess = "OnSuccessCreateSection"
+    }, new { @class = "section-form-to-hide"}))
+{    
+    <fieldset>
+        <legend>Создание раздела</legend>
+
+        <div class="editor-label">
+            @Html.Label("Название раздела")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(x=>x.SectionTitle)
+        </div>
+        
+        <input class="submit-creation-section" type="submit" value="Создать новый раздел" />
+    </fieldset>
+}

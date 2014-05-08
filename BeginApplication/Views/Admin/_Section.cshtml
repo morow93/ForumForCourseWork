@@ -1,0 +1,22 @@
+﻿@model BeginApplication.Models.ChangeSectionModel
+
+@if (Model != null)
+{ 
+    Model.Target = "section" + Model.SectionId; 
+    <div id="@Model.Target">
+        Название раздела : @Model.SectionTitle 
+        @Ajax.ActionLink("Переименовать", "_RenameSection", "Admin", Model, 
+        new AjaxOptions {
+            UpdateTargetId = Model.Target, 
+            HttpMethod = "GET", 
+            InsertionMode = InsertionMode.Replace 
+        }, null) 
+        @Ajax.ActionLink("Удалить", "RemoveSection", "Admin", Model, new AjaxOptions
+            {
+                UpdateTargetId = Model.Target,
+                HttpMethod = "GET",
+                InsertionMode = InsertionMode.Replace,
+                OnFailure = "OnFailureRemoveSection"
+            }, new { @class = "del-section-ref" })
+    </div>
+}

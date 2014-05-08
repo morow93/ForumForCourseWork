@@ -11,6 +11,7 @@ using System.Web.Security;
 using WebMatrix.WebData;
 using PagedList;
 using BeginApplication.Helpers;
+using System.Net;
 
 namespace BeginApplication.Controllers
 {
@@ -29,6 +30,8 @@ namespace BeginApplication.Controllers
         {
             return View();
         }
+
+        #region Получить данные для изменения
 
         public ActionResult GetUsers(string sortOrder, string currentFilter, string searchString, int page = 1)
         {
@@ -106,17 +109,72 @@ namespace BeginApplication.Controllers
     
             return View(model);  
         }
+        
+        public ActionResult GetSections()
+        {
+            return View(repository.Sections.Select(x => new ChangeSectionModel { SectionId = x.SectionId, SectionTitle = x.SectionTitle }).ToList());
+        }
+
+        #endregion
+
+        #region Переименование раздела
+
+        public ActionResult _RenameSection(ChangeSectionModel section)
+        {
+            return PartialView(section);
+        }
+
+        [HttpPost]
+        public ActionResult _SubmitSectionChange(ChangeSectionModel section)
+        {
+            using (var context = new SimpleMembershipContext())
+            { 
+                var db_section = context.Sections.FirstOrDefault(x => x.SectionId == section.SectionId);
+
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        db_section.SectionTitle = section.SectionTitle;
+                        context.SaveChanges();
+                    }
+                    catch
+                    {
+                        Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    }
+                }
+                else
+                {
+                    section.SectionTitle = db_section.SectionTitle;
+                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                }               
+            }
+            return PartialView("_Section", section);
+        }
+
+        public ActionResult _HideRenameForm(ChangeSectionModel section)
+        {
+            return PartialView("_Section", section);
+        }
+
+        #endregion
+
+        #region Изменить роль пользователя
 
         public string GetChangeRoleUrl(int id, string path)
         {
             var linkText = String.Empty;
             if (Roles.IsUserInRole(repository.UserProfiles.FirstOrDefault(u => u.UserId == id).UserName, "moder"))
             {
-                linkText = "<a class='moder-to-user' href='" + Url.Action("ChangeRole", "Admin", new { id = id, role = String.Empty, path = path }, "http") + "'>Модератор -> Пользователь</a>";
+                linkText = "<a class='moder-to-user' title='Разжаловать' href='" 
+                    + Url.Action("ChangeRole", "Admin", new { id = id, role = String.Empty, path = path }, "http") 
+                    + "'>Модератор -> Пользователь</a>";
             }
             else
             {
-                linkText = "<a class='user-to-moder' href='" + Url.Action("ChangeRole", "Admin", new { id = id, role = "moder", path = path }, "http") + "'>Пользователь -> Модератор</a>";
+                linkText = "<a class='user-to-moder' title='Повысить' href='" 
+                    + Url.Action("ChangeRole", "Admin", new { id = id, role = "moder", path = path }, "http") 
+                    + "'>Пользователь -> Модератор</a>";
             }
             return linkText;
         }
@@ -134,47 +192,66 @@ namespace BeginApplication.Controllers
                 return RedirectToAction("GetUsers", "Admin");
         }
 
+        #endregion
+        
         public ActionResult RemoveUser(UserModel user)
         {
-            var name = user.UserName;
-            var result = true;
-            try 
-            {
-                var roles = Roles.GetRolesForUser(user.UserName);
-                if (roles != null && roles.Length != 0)
-                {
-                    Roles.RemoveUserFromRoles(user.UserName, roles);
-                }
-      
-                using (var context = new SimpleMembershipContext())
-                {
-                    var toRemove = context.UserProfiles.FirstOrDefault(u => u.UserId == user.UserId);
+            if (ModelState.IsValid)
+            { 
+                var result = repository.RemoveUser(user);
 
-                    toRemove.UserName = null;
-                    toRemove.Email = null;
-                    toRemove.ImageData = null;
-                    toRemove.ImageMimeType = null;
-                    toRemove.Mobile = null;
-                    toRemove.IsDeleted = true;                    
-
-                    context.SaveChanges();
+                if (result)
+                {
+                    user = null;
                 }
-            }
-            catch
-            {
-                result = false;
-            }
-            if (result)
-            {
-                TempData["message"] = "Пользователь " + name + " был удален.";
+                else
+                {
+                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                }   
             }
             else
-            { 
-                TempData["message"] = "При удаленни пользователя " + name + " произошла ошибка.";
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
             }
-
-            user = null;
             return PartialView("_User", user);
+        }
+
+        public ActionResult RemoveSection(ChangeSectionModel section)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = repository.RemoveSection(section.SectionId);
+
+                if (result)
+                {
+                    section = null;
+                }
+                else
+                {
+                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                }
+            }
+            else
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            }
+            return PartialView("_Section", section);
+        }
+
+        public ActionResult CreateSection(ChangeSectionModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = repository.AddSection(new Section { SectionTitle = model.SectionTitle });
+                
+                if (!result)
+                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            }
+            else
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            }
+            return PartialView("_CreateSection", null);
         }
     }
 }

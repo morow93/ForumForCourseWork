@@ -143,7 +143,7 @@ body {
         float: right;
     }
 
-#add-comment-form, .changeAvatar{
+#add-comment-form, .changeAvatar, .section-form-to-hide{
     display: none;
 }
 
@@ -237,6 +237,9 @@ body {
     overflow: hidden;
 }
 
-.del-ref{
+.del-user-ref{
     clear: both;
+}
+.hide-form-section-ref{
+    float: right;
 }

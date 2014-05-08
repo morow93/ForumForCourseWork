@@ -1,0 +1,23 @@
+﻿@model BeginApplication.Models.ChangeSectionModel
+
+@using (Ajax.BeginForm("_SubmitSectionChange", "Admin", Model, new AjaxOptions
+    {
+        UpdateTargetId = Model.Target,
+        HttpMethod = "POST",
+        OnFailure = "OnFailureRenameSection"
+    }, null))
+{
+    <fieldset>
+        <legend>Переименовать раздел "@Model.SectionTitle"</legend>
+
+        <div class="editor-label">
+            @Html.Label("Название раздела")
+        </div>
+        <div class="editor-field">
+            @Html.TextBox("SectionTitle", Model.SectionTitle, new { title = "Старое название" })
+        </div>        
+
+        <input type="submit" value="Изменить" />
+    </fieldset>
+}
+@Ajax.ActionLink("Закрыть", "_HideRenameForm", "Admin", Model, new AjaxOptions { UpdateTargetId = Model.Target, HttpMethod = "GET" }, new { @class = "hide-form-section-ref" })

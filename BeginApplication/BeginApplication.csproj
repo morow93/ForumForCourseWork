@@ -373,23 +373,27 @@
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Forum\Index.cshtml" />
-    <Content Include="Views\Shared\_Themes.cshtml" />
+    <Content Include="Views\Home\_Themes.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Forum\Section.cshtml" />
     <Content Include="Views\Forum\Theme.cshtml" />
     <Content Include="Views\Forum\AddTheme.cshtml" />
-    <Content Include="Views\Shared\_PagedThemes.cshtml" />
-    <Content Include="Views\Shared\_ThemesMenu.cshtml" />
+    <Content Include="Views\Forum\_PagedThemes.cshtml" />
+    <Content Include="Views\Forum\_ThemesMenu.cshtml" />
     <Content Include="Views\Forum\_AddComment.cshtml" />
-    <Content Include="Views\Shared\_PagedComments.cshtml" />
-    <Content Include="Views\Shared\_CommentsMenu.cshtml" />
+    <Content Include="Views\Forum\_PagedComments.cshtml" />
+    <Content Include="Views\Forum\_CommentsMenu.cshtml" />
     <Content Include="Views\Forum\_GetCommentData.cshtml" />
     <Content Include="Views\Account\EditPrivateProperties.cshtml" />
     <Content Include="Views\Shared\_Avatar.cshtml" />
     <Content Include="Views\Shared\_Theme.cshtml" />
     <Content Include="Views\Admin\GetUsers.cshtml" />
-    <Content Include="Views\Shared\_Empty.cshtml" />
-    <Content Include="Views\Shared\_User.cshtml" />
+    <Content Include="Views\Admin\_Empty.cshtml" />
+    <Content Include="Views\Admin\_User.cshtml" />
+    <Content Include="Views\Admin\GetSections.cshtml" />
+    <Content Include="Views\Admin\_Section.cshtml" />
+    <Content Include="Views\Admin\_RenameSection.cshtml" />
+    <Content Include="Views\Admin\_CreateSection.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

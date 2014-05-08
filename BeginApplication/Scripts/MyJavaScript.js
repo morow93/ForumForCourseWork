@@ -13,6 +13,15 @@
             $(".changeAvatar").hide("slow");
         }
     });
+ 
+    $("#show-form-create-section").on('click', function () {
+        if ($(".section-form-to-hide").css('display') == 'none') {
+            $(".section-form-to-hide").show("slow");
+        }
+        else {
+            $(".section-form-to-hide").hide("slow");
+        }
+    });
 
     $(".del-comment-ref").click(function () {
         var answer = confirm('Вы действительно хотите удалить сообщение?');
@@ -24,8 +33,30 @@
         return answer;
     });
     
-    $(".del-ref").click(function () {
+    $(".del-section-ref").click(function () {
+        var answer = confirm('Вы действительно хотите удалить раздел?');
+        return answer;
+    });
+
+    $(".del-user-ref").click(function () {
         var answer = confirm('Вы действительно хотите удалить пользователя?');
         return answer;
     });
+    
 });
+
+function OnSuccessCreateSection(data) {
+    alert("Раздел был добавлен.");
+}
+function OnFailureCreateSection(request) {
+    alert("Раздел не был добавлен.");
+}
+function OnFailureRenameSection(request) {
+    alert("Раздел не был переименован.");
+}
+function OnFailureRemoveSection(request) {
+    alert("Раздел не был удален.");
+}
+function OnFailureRemoveUser(request) {
+    alert("Пользователь не был удален.");
+}

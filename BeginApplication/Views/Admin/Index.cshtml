@@ -1,9 +1,15 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Раздел администрирования";
 }
 
 <h2>Раздел аминистрирования</h2>
 
 <ul>
     <li>@Html.ActionLink("Управление пользователями", "GetUsers", "Admin", null, null)</li>
+    <li>@Html.ActionLink("Управление существующими разделами", "GetSections", "Admin", null, null)</li>
+    <li><a href="#" id="show-form-create-section">Создание нового раздела</a></li>
 </ul>
+
+<div id="here-target" class="there-target">
+    @Html.Partial("_CreateSection", null)
+</div>

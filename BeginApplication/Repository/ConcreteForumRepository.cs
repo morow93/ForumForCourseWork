@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using WebMatrix.WebData;
 
 namespace BeginApplication.Repository
@@ -162,6 +163,20 @@ namespace BeginApplication.Repository
             catch { }
         }
 
+        public bool AddSection(Section section)
+        {
+            var result = true;
+            try
+            {
+                context.Sections.Add(section);
+                context.SaveChanges();
+            }
+            catch {
+                result = false;
+            }
+            return result;
+        }
+
         #endregion
 
         #region Настройки приватности
@@ -283,6 +298,72 @@ namespace BeginApplication.Repository
                         context.Likes.Remove(like);
                     }
                     context.Comments.Remove(comment);
+
+                    context.SaveChanges();
+                }
+                catch
+                {
+                    result = false;
+                }
+            }
+            return result;
+        }
+
+        public bool RemoveUser(UserModel user)
+        {
+            var result = true;
+
+            try
+            {               
+                var roles = Roles.GetRolesForUser(user.UserName);
+                if (roles != null && roles.Length != 0)
+                {
+                    Roles.RemoveUserFromRoles(user.UserName, roles);
+                }
+
+                using (var context = new SimpleMembershipContext())
+                {
+                    var toRemove = context.UserProfiles.FirstOrDefault(u => u.UserId == user.UserId);
+
+                    toRemove.UserName = null;
+                    toRemove.Email = null;
+                    toRemove.ImageData = null;
+                    toRemove.ImageMimeType = null;
+                    toRemove.Mobile = null;
+                    toRemove.IsDeleted = true;
+
+                    context.SaveChanges();
+                }
+            }
+            catch
+            {
+                result = false;
+            }
+            return result;
+        }
+
+        public bool RemoveSection(int id)
+        {
+            var section = context.Sections.FirstOrDefault(x => x.SectionId == id);
+            var result = true;
+
+            if (section != null)
+            {
+                try
+                {
+                    foreach (var theme in section.Theme.ToList())
+                    {
+                        foreach (var comment in theme.Comment.ToList())
+                        {
+                            foreach (var like in comment.Like.ToList())
+                            {
+                                context.Likes.Remove(like);
+                            }
+                            context.Comments.Remove(comment);
+                        }
+                        context.Themes.Remove(theme);
+                    }
+                    context.Sections.Remove(section);
 
                     context.SaveChanges();
                 }
