@@ -22,6 +22,10 @@
     $(".del-theme-ref").click(function () {
         var answer = confirm('Вы действительно хотите удалить тему?');
         return answer;
-    });s
+    });
     
+    $(".del-ref").click(function () {
+        var answer = confirm('Вы действительно хотите удалить пользователя?');
+        return answer;
+    });
 });

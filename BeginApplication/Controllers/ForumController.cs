@@ -65,7 +65,7 @@ namespace BeginApplication.Controllers
                 Theme = repository.Themes.Where(t => t.ThemeId == id).Select(x => new CurrentTheme
                 {
                     UserId = x.User.UserId,
-                    UserName = x.User.UserName,
+                    UserName = x.User.UserName ?? "Удаленный пользователь",
                     ThemeId = x.ThemeId,
                     ThemeTitle = x.ThemeTitle,
                     ThemeText = x.ThemeText,

@@ -1,0 +1,26 @@
+﻿@model BeginApplication.Models.UserModel
+
+@TempData["message"]
+
+@if (Model != null)
+{ 
+    Model.Target = "user" + Model.UserId;         
+    
+    <tr class="target-row" id="@Model.Target">
+        <td>
+            @Html.DisplayFor(m => m.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(m => m.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(m => m.RegistrationDate)
+        </td>
+        <td>
+            @Html.Action("GetChangeRoleUrl", "Admin", new { id = Model.UserId, path = Request.Url.AbsoluteUri })
+        </td>
+        <td>
+            @Ajax.ActionLink("Удалить", "RemoveUser", "Admin", Model, new AjaxOptions { UpdateTargetId = Model.Target, HttpMethod = "GET", InsertionMode = InsertionMode.Replace }, new { @class = "del-ref" })
+        </td>
+    </tr>
+}

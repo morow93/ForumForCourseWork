@@ -236,3 +236,7 @@ body {
 .user-data, .user-paged-list, .form-user-searching{
     overflow: hidden;
 }
+
+.del-ref{
+    clear: both;
+}

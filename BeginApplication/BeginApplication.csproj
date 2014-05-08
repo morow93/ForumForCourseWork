@@ -388,6 +388,8 @@
     <Content Include="Views\Shared\_Avatar.cshtml" />
     <Content Include="Views\Shared\_Theme.cshtml" />
     <Content Include="Views\Admin\GetUsers.cshtml" />
+    <Content Include="Views\Shared\_Empty.cshtml" />
+    <Content Include="Views\Shared\_User.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

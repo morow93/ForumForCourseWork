@@ -133,5 +133,48 @@ namespace BeginApplication.Controllers
             else
                 return RedirectToAction("GetUsers", "Admin");
         }
+
+        public ActionResult RemoveUser(UserModel user)
+        {
+            var name = user.UserName;
+            var result = true;
+            try 
+            {
+                var roles = Roles.GetRolesForUser(user.UserName);
+                if (roles != null && roles.Length != 0)
+                {
+                    Roles.RemoveUserFromRoles(user.UserName, roles);
+                }
+      
+                using (var context = new SimpleMembershipContext())
+                {
+                    var toRemove = context.UserProfiles.FirstOrDefault(u => u.UserId == user.UserId);
+
+                    toRemove.UserName = null;
+                    toRemove.Email = null;
+                    toRemove.ImageData = null;
+                    toRemove.ImageMimeType = null;
+                    toRemove.Mobile = null;
+                    toRemove.IsDeleted = true;                    
+
+                    context.SaveChanges();
+                }
+            }
+            catch
+            {
+                result = false;
+            }
+            if (result)
+            {
+                TempData["message"] = "Пользователь " + name + " был удален.";
+            }
+            else
+            { 
+                TempData["message"] = "При удаленни пользователя " + name + " произошла ошибка.";
+            }
+
+            user = null;
+            return PartialView("_User", user);
+        }
     }
 }

@@ -74,7 +74,7 @@ namespace BeginApplication.Repository
                     select new ThemeInfo
                     {
                         UserId = groupResult.Key.UserId,
-                        UserName = groupResult.Key.UserName,
+                        UserName = groupResult.Key.UserName ?? "Удаленный пользователь",
                         ThemeId = groupResult.Key.ThemeId,
                         ThemeTitle = groupResult.Key.ThemeTitle,
                         CreationDate = groupResult.Key.CreationDate,
@@ -117,7 +117,7 @@ namespace BeginApplication.Repository
                     select new ThemeInfo
                     {
                         UserId = groupResult.Key.UserId,
-                        UserName = groupResult.Key.UserName,
+                        UserName = groupResult.Key.UserName ?? "Удаленный пользователь",
                         ThemeId = groupResult.Key.ThemeId,
                         ThemeTitle = groupResult.Key.ThemeTitle,
                         CreationDate = groupResult.Key.CreationDate,
@@ -132,7 +132,7 @@ namespace BeginApplication.Repository
                         CommentId = x.CommentId,
                         CommentText = x.CommentText,
                         CreationDate = x.CreationDate,
-                        UserName = x.User.UserName,
+                        UserName = x.User.UserName ?? "Удаленный пользователь",
                         UserId = x.User.UserId,
                         CommentVote = x.Like.Where(y => y.CommentId == x.CommentId).Sum(z => z.Vote) == null ? 0 : x.Like.Where(y => y.CommentId == x.CommentId).Sum(z => z.Vote)
                     }).OrderBy(c => c.CreationDate).ToList();
