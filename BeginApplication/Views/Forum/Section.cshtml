@@ -1,7 +1,7 @@
 ﻿@model BeginApplication.Models.ThemesWithSectionModel
 
 @{
-    ViewBag.Title = "Раздел № " + Model.Section.SectionId;
+    ViewBag.Title = Model.Section.SectionTitle;
 }
 
 <h2>@Model.Section.SectionTitle. Темы</h2>

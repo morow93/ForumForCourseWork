@@ -25,6 +25,7 @@ namespace BeginApplication.Repository
 
         void AddTheme(Theme theme);
         void AddComment(Comment comment);
+        bool AddSection(Section section);
 
         PrivatePropertiesModel GetPrivateProperties(int id);
         void SetPrivateProperties(PrivatePropertiesModel model, int id);
@@ -32,5 +33,7 @@ namespace BeginApplication.Repository
 
         bool RemoveTheme(int id);
         bool RemoveComment(int id);
+        bool RemoveUser(UserModel user);
+        bool RemoveSection(int id);
     }
 }
