@@ -35,21 +35,29 @@ namespace BeginApplication.Controllers
         }
         
         [AllowAnonymous]
-        public ActionResult Section(int id, int page = 1)
+        public ActionResult Section(string searching, int id, int page = 1)
         {
             var themesBySection = repository.GetThemesBySection(id);
+
+            if (!String.IsNullOrEmpty(searching))
+            {
+                themesBySection = themesBySection.Where(s =>
+                s.ThemeTitle.ToUpper().Contains(searching.ToUpper())).ToList();
+            } 
+
             var model = new ThemesWithSectionModel
             {
                 TotalItems = themesBySection.Count,
                 PagedThemes = (PagedList<ThemeInfo>)themesBySection.ToPagedList(page, 10),
-                Section = repository.Sections.FirstOrDefault(s => s.SectionId == id)
+                Section = repository.Sections.FirstOrDefault(s => s.SectionId == id),
+                SearchingString = searching
             };
 
             int countPages = (int)Math.Ceiling((double)model.TotalItems/(double)10);
             if (countPages != 0 && page > countPages)
             {
                 while (page > countPages) page--;
-                return RedirectToAction("Section", "Forum", new { id = id, page = page });
+                return RedirectToAction("Section", "Forum", new { searching = searching, id = id, page = page });
             }
             return View(model);
         }

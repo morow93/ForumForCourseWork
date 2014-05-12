@@ -1,10 +1,11 @@
 ﻿@model BeginApplication.Models.ThemesWithSectionModel
 
-@if (User.Identity.IsAuthenticated || Model.TotalItems > 10)
-{ 
+@if ((User.Identity.IsAuthenticated && String.IsNullOrEmpty(Model.SearchingString)) || 
+    Model.TotalItems > 10)
+{
     <div class="theme-menu">
         <div class="theme-menu-add">
-            @if (User.Identity.IsAuthenticated)
+            @if (User.Identity.IsAuthenticated && String.IsNullOrEmpty(Model.SearchingString))
             {
                 <p>
                     @Html.ActionLink("Добавить тему", "AddTheme", "Forum", new { id = Model.Section.SectionId }, null)
@@ -16,7 +17,12 @@
             {
                 @Html.PagedListPager(
                     (IPagedList)Model.PagedThemes,
-                    page => Url.Action("Section", "Forum", new { id = Model.Section.SectionId, page }),
+                    page => Url.Action("Section", "Forum", new 
+                    { 
+                        searching = Model.SearchingString, 
+                        id = Model.Section.SectionId, 
+                        page 
+                    }),
                     new PagedListRenderOptions
                     {
                         LinkToFirstPageFormat = String.Format("<< Первая страница"),
