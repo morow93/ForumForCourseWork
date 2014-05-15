@@ -6,7 +6,7 @@
         @if (User.Identity.IsAuthenticated)
         {
             <div class="comment-menu-add">       
-                <input type="button" value="Добавить комментарий" class="buttonShow" />
+                <input type="button" class="btn btn-sm btn-default" value="Добавить комментарий" class="buttonShow" />
             </div>
         }
         @if (Model.TotalItems > 10)

@@ -1,0 +1,216 @@
+body .login{
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
+	margin-bottom: 60px;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 60px 0px 0px 0px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.login-underbox {
+	padding: 10px 15px;
+  text-align: center;
+}
+
+.main {
+	margin-top: 100px;
+}
+
+.topic-link-line  > div{
+	min-height: 50px;
+	line-height: 50%;
+	padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #eeeeee;
+	background-color: rgba(0, 0, 175, 0.15);
+	vertical-align: middle;
+	margin-bottom: 2px;
+}
+
+.topic-link-line > .col-md-8 {
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-left: 1px solid #ddd;
+	border-left: 1px solid rgba(86,61,124,.2);
+	border-top: 1px solid #ddd;
+	border-top: 1px solid rgba(86,61,124,.2);
+	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid rgba(86,61,124,.2);
+}
+
+.topic-link-line > .col-md-3 {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-right: 1px solid #ddd;
+	border-right: 1px solid rgba(86,61,124,.2);
+	border-top: 1px solid #ddd;
+	border-top: 1px solid rgba(86,61,124,.2);
+	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid rgba(86,61,124,.2);
+}
+
+.topic-link {
+	
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  background-color: #f5f5f5;
+}
+
+#footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
+
+.container .text-muted {
+  margin: 10px 0;
+}
+
+.section-link-line > div {
+	min-height: 40px;
+	padding-top: 16px;
+  padding-bottom: 0px;
+	vertical-align: middle;
+}
+
+.capcha > img {
+	margin-bottom: 10px;
+}
+
+.post-title  > div{
+	padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #eeeeee;
+	background-color: rgba(0, 0, 175, 0.15);
+}
+
+.post-title > .col-sm-6, .col-sm-4 {
+	border-top: 1px solid #ddd;
+	border-top: 1px solid rgba(86,61,124,.2);
+	border-left: 1px solid #ddd;
+	border-left: 1px solid rgba(86,61,124,.2);
+	border-top-left-radius: 4px;
+}
+
+.post-title > .col-sm-2 {
+	border-top: 1px solid #ddd;
+	border-top: 1px solid rgba(86,61,124,.2);
+	border-right: 1px solid #ddd;
+	border-right: 1px solid rgba(86,61,124,.2);
+	border-top-right-radius: 4px;
+}
+
+.answer-container > .container > .post-title > .col-sm-2 {
+	border-top: 1px solid #ddd;
+	border-top: 1px solid rgba(86,61,124,.2);
+	border-right: 0px;
+	border-top-right-radius: 0px;
+}
+
+.answer-container > .container > .post-title > .last {
+	border-top: 1px solid #ddd;
+	border-top: 1px solid rgba(86,61,124,.2);
+	border-right: 1px solid #ddd;
+	border-right: 1px solid rgba(86,61,124,.2);
+	border-top-right-radius: 4px;
+}
+
+.post-content > div {
+	padding-top: 10px;
+  padding-bottom: 10px;
+	background-color: #eeeeee;
+	background-color: rgba(0, 0, 175, 0.15);
+}
+
+.post-content > .col-xs-6 {
+	vertical-align: top;
+	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid rgba(86,61,124,.2);
+	border-right: 1px solid #ddd;
+	border-right: 1px solid rgba(86,61,124,.2);
+	border-bottom-right-radius: 4px;
+}
+
+.post-content > .col-xs-2 {
+	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid rgba(86,61,124,.2);
+	border-left: 1px solid #ddd;
+	border-left: 1px solid rgba(86,61,124,.2);
+	border-bottom-left-radius: 4px;
+}
+.answer-container {
+	margin-left: 50px;
+	margin-top: 20px;
+}
+
+.post-content > div > img {
+	width: 100px;
+}
+
+.form-signin {
+	text-align: center;
+}
+
+.comment-menu {
+	padding-top: 10px;
+}
+
+.checkbox {
+	display: -webkit-inline-box;
+}
+
+fieldset > span {
+	color: #ee1111;
+}
+
+.validation-summary-errors > ul {
+	list-style: none;
+	color: #ee1111;
+	text-align: left;
+}
