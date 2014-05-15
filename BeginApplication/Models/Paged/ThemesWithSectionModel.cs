@@ -11,7 +11,9 @@ namespace BeginApplication.Models
     {
         public PagedList<ThemeInfo> PagedThemes { get; set; }
         public Section Section { get; set; }
-        public int TotalItems { get; set; }        
+        public int TotalItems { get; set; }
+
+        public string SearchingString { get; set; }
     }
 
     public class ThemeInfo
