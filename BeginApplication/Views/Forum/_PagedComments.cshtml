@@ -1,4 +1,4 @@
-﻿@model BeginApplication.Models.CommentsWithThemeModel 
+﻿@model BeginApplication.Models.CommentsWithThemeModel
 
 @if (Model != null)
 {
@@ -10,10 +10,10 @@
                     <div class="row row-sm-height post-title">
                         <div class="col-sm-4 col-xs-height">
                             @Html.Partial("_UserAct", new BeginApplication.Models.ShortUserSummary
-                            {
-                                UserId = c.UserId,
-                                UserName = c.UserName
-                            })
+                             {
+                                 UserId = c.UserId,
+                                 UserName = c.UserName
+                             })
                             @if (Roles.IsUserInRole("moder") || Roles.IsUserInRole("admin"))
                             {
                                 @Html.ActionLink("Удалить комментарий", "RemoveComment", "Forum", new { id = c.CommentId, theme = Model.Theme.ThemeId, path = Request.Url.AbsoluteUri }, new { @class = "del-comment-ref" })
@@ -23,7 +23,7 @@
                             @c.CreationDate.ToShortTimeString()  , @c.CreationDate.ToShortDateString()
                         </div>
                         <div style="text-align: right;" class="col-sm-2 col-xs-height last">
-                            
+
                             @if (Request.IsAuthenticated)
                             {
                                 var target = "id" + c.CommentId.ToString();

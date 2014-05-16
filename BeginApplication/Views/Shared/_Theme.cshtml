@@ -8,11 +8,11 @@
     <div class="col-md-3">
         <small>
             <p>Постов: @Model.CountComments</p>
-            Автор: 
-            @Html.Partial("_UserAct", new BeginApplication.Models.ShortUserSummary {
-                UserId = Model.UserId,
-                UserName = Model.UserName
-            })
+            Автор: @Html.Partial("_UserAct", new BeginApplication.Models.ShortUserSummary
+              {
+                  UserId = Model.UserId,
+                  UserName = Model.UserName
+              })
         </small>
     </div>
 </div>
