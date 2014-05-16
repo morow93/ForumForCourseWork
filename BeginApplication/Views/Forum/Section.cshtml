@@ -4,7 +4,7 @@
     ViewBag.Title = Model.Section.SectionTitle;
 }
 
-<h2>@Model.Section.SectionTitle. Темы</h2>
+<h2>@Model.Section.SectionTitle</h2>
 
 <div class="form-theme-searching">
     @using (Html.BeginForm("Section", "Forum", new { searching = Model.SearchingString, page = 1 }, FormMethod.Get, null))

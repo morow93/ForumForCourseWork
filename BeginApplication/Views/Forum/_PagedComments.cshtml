@@ -14,6 +14,7 @@
                                  UserId = c.UserId,
                                  UserName = c.UserName
                              })
+                            | 
                             @if (Roles.IsUserInRole("moder") || Roles.IsUserInRole("admin"))
                             {
                                 @Html.ActionLink("Удалить комментарий", "RemoveComment", "Forum", new { id = c.CommentId, theme = Model.Theme.ThemeId, path = Request.Url.AbsoluteUri }, new { @class = "del-comment-ref" })

@@ -263,3 +263,7 @@ h4 {
 	border-bottom-right-radius: 5px;
 	border-top-right-radius: 5px;
 }
+
+h4.topic-title {
+	text-align: left;
+}

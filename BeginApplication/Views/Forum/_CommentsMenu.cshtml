@@ -6,7 +6,7 @@
         @if (User.Identity.IsAuthenticated)
         {
             <div class="comment-menu-add">       
-                <input type="button" class="btn btn-sm btn-default" value="Добавить комментарий" class="buttonShow" />
+                <input type="button" class="btn btn-sm btn-default" onclick="$('#add-comment-block').show(); scrollToElement('#add-comment-block');" value="Добавить комментарий" />
             </div>
         }
         @if (Model.TotalItems > 10)
@@ -33,5 +33,4 @@
         }
     </div>
 }
-
 
