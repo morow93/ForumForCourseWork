@@ -9,12 +9,17 @@
 <div class="form-theme-searching">
     @using (Html.BeginForm("Section", "Forum", new { searching = Model.SearchingString, page = 1 }, FormMethod.Get, null))
     {
-        <text>
-            Поиск :  
-            @Html.TextBox("searching", (string)Model.SearchingString)
-            @Html.Hidden("id", Model.Section.SectionId)
-            <input type="submit" value="Поиск" />
-        </text>
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="input-group">
+                    @Html.TextBox("searching", (string)Model.SearchingString, new { @class = "form-control" })
+                    @Html.Hidden("id", Model.Section.SectionId)
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">Поиск</button>
+                    </span>
+                </div>
+            </div>
+        </div>
     }
 </div>
 

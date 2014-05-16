@@ -2,7 +2,10 @@
 
 <div class="row topic-link-line">
     <div class="col-md-8">
-        <p>@Html.ActionLink(Model.ThemeTitle, "Theme", "Forum", new { id = Model.ThemeId }, null)</p>
+        <p>
+            @Html.ActionLink(Model.ThemeTitle, "Theme", "Forum", new { id = Model.ThemeId }, null) 
+            
+        </p>
         <small>@Model.CreationDate.ToShortTimeString() , @Model.CreationDate.ToShortDateString()</small>
     </div>
     <div class="col-md-3">
