@@ -9,7 +9,11 @@
                 <div class="container container-xs-height">
                     <div class="row row-sm-height post-title">
                         <div class="col-sm-4 col-xs-height">
-                            @c.UserName
+                            @Html.Partial("_UserAct", new BeginApplication.Models.ShortUserSummary
+                            {
+                                UserId = c.UserId,
+                                UserName = c.UserName
+                            })
                             @if (Roles.IsUserInRole("moder") || Roles.IsUserInRole("admin"))
                             {
                                 @Html.ActionLink("Удалить комментарий", "RemoveComment", "Forum", new { id = c.CommentId, theme = Model.Theme.ThemeId, path = Request.Url.AbsoluteUri }, new { @class = "del-comment-ref" })

@@ -376,5 +376,18 @@ namespace BeginApplication.Repository
         }
 
         #endregion
+
+        public UserSummaryModel GetUserSummary(int id)
+        {
+            var result = context.UserProfiles.Where(u=>u.UserId == id).Select(x => new UserSummaryModel
+            {
+                UserId = x.UserId,
+                UserName = x.UserName,
+                Rating = context.Likes.Where(lk => lk.Comment.UserId == id).Sum(y => y.Vote),
+                Email = x.UserProperty.ShowEmail ? (string.IsNullOrEmpty(x.Email) ? "пользователь не указал почту" : x.Email) : "пользователь скрыл почту",
+                Mobile = x.UserProperty.ShowMobile ? (string.IsNullOrEmpty(x.Mobile) ? "пользователь не указал телефон" : x.Mobile) : "пользователь скрыл телефон",
+            }).FirstOrDefault();
+            return result;
+        }
     }
 }

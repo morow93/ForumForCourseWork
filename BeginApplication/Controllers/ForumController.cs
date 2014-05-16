@@ -244,5 +244,11 @@ namespace BeginApplication.Controllers
         }
 
         #endregion
+
+        public ActionResult UserInfo(int id)
+        {
+            var model = repository.GetUserSummary(id);
+            return View(model);
+        }
     }
 }

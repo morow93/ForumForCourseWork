@@ -7,7 +7,12 @@
 <div class="container container-xs-height">
     <div class="row row-sm-height post-title">
         <div class="col-sm-6 col-xs-height">
-            <strong>Автор темы:</strong> @Model.Theme.UserName
+            <strong>Автор темы:</strong> 
+            @Html.Partial("_UserAct", new BeginApplication.Models.ShortUserSummary
+            {
+                UserId = Model.Theme.UserId,
+                UserName = Model.Theme.UserName
+            })
         </div>
         <div class="col-sm-2 col-xs-height">
             @Model.Theme.CreationDate.ToShortTimeString() , @Model.Theme.CreationDate.ToShortDateString()
