@@ -267,3 +267,7 @@ h4 {
 h4.topic-title {
 	text-align: left;
 }
+
+.post-content >.col-xs-2{
+	text-align: center;
+}
