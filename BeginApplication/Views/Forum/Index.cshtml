@@ -4,15 +4,24 @@
     ViewBag.Title = "Форум";
 }
 
-<h2>Разделы форума</h2>
-
-@foreach (var forumSection in Model.Sections)
-{
-    <div class="forum-section">
-        <p class="forum-section-cell">
-            @Html.ActionLink(forumSection.SectionTitle, "Section", "Forum", new { id = (int)forumSection.SectionId }, null )
-        </p>
-        <p class="forum-section-cell">Количество тем : @forumSection.ThemeCount</p>
-        <p class="forum-section-cell">Количество сообщений : @forumSection.CommentCount</p>
-    </div>
-}
+<h4>Разделы форума</h4>
+<div class="container main section-list">
+    @foreach (var forumSection in Model.Sections)
+    {
+        <div class="row topic-link-line section-link-line">
+            <div class="col-md-7">
+                <p>@Html.ActionLink(forumSection.SectionTitle, "Section", "Forum", new { id = (int)forumSection.SectionId, @class = "topic-link" }, null)</p>
+            </div>
+            <div class="col-md-2">
+                <small>
+                    <p>Тем: @forumSection.ThemeCount</p>
+                </small>
+            </div>
+            <div class="col-md-2 last">
+                <small>
+                    <p>Постов: @forumSection.CommentCount</p>
+                </small>
+            </div>
+        </div>
+    }
+</div>

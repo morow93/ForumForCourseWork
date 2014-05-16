@@ -4,7 +4,7 @@
     ViewBag.Title = "Регистрация";
 }
 
-<h2>Зарегистрироваться</h2>
+<h4>Зарегистрироваться</h4>
 
 @using (Html.BeginForm())
 {
@@ -12,55 +12,31 @@
     @Html.ValidationSummary()
 
     <fieldset>
-        <legend>Форма регистрации</legend>
 
-        <div class="editor-label">
-            @Html.LabelFor(m => m.UserName)                
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(m => m.UserName)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(m => m.Password)
-        </div>
-        <div class="editor-field">
-            @Html.PasswordFor(m => m.Password)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(m => m.ConfirmPassword)
-        </div>
-        <div class="editor-field">
-            @Html.PasswordFor(m => m.ConfirmPassword)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(m => m.Email)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(m => m.Email)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(m => m.Mobile)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(m => m.Mobile)
-        </div>
-
-        <div class="editor-label">
-            @Html.Label("Капча") <br />
-            @Html.ShowCaptcha("Account", "Captcha", 160, 50)
-        </div>
-        <div class="editor-field">
-            @Html.Editor("Captcha")<br />
-            @Html.ValidationMessage("Captcha")
-        </div>
-
-        <input type="submit" value="Регистрация" />
+        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Имя пользователя" })
+        <p></p>
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Пароль" })
+        <p></p>
+        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Проверка пароля" })
+        <p></p>
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email" })
+        <p></p>
+        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @placeholder = "Номер телефона" })
+        <p></p>
+        @Html.ShowCaptcha("Account", "Captcha", 160, 50)
+        <p></p>
+        @Html.Editor("Captcha")<br />
+        @Html.ValidationMessage("Captcha")
+        <p></p>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Регистрация</button>
     </fieldset>
 }
+
+<script>
+    $('form').prop("class", "form-registration");
+    $('#Captcha').prop("class", "form-control");
+    $('#Captcha').prop("placeholder", "Введите текст с картинки");
+</script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

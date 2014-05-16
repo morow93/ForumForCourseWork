@@ -3,19 +3,16 @@
 @{
     ViewBag.Title = "Вход";
 }
-
-<h4>Выполнить вход</h4>
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
     
     <fieldset>
-        @Html.TextBoxFor(m => m.UserName)
+        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Email" })
         @Html.ValidationMessageFor(m => m.UserName)
         <p></p>
-        @Html.PasswordFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Пароль" })
         @Html.ValidationMessageFor(m => m.Password)
         <p></p>
         @Html.CheckBoxFor(m => m.RememberMe)
@@ -29,12 +26,7 @@
 }
 
 <script>
-    $('input:text').prop("class", "form-control");
-    $('input:password').prop("class", "form-control");
-    $('input:text').prop("placeholder", "Email");
-    $('input:password').prop("placeholder", "Пароль");
     $('form').prop("class", "form-signin");
-    
 </script>
 
 @section Scripts {
