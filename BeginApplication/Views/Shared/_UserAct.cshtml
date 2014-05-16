@@ -1,0 +1,18 @@
+﻿@model BeginApplication.Models.ShortUserSummary
+
+@if (!Request.IsAuthenticated || !WebSecurity.UserExists(Model.UserName))
+{
+    @Model.UserName
+}
+else
+{
+    if (Model.UserName == WebSecurity.CurrentUserName)
+    {
+        @Html.ActionLink(Model.UserName, "Index", "Account", routeValues: null, htmlAttributes: new { id = "user-name", title = "Личный кабинет" })
+    }
+    else
+    {
+        @Html.ActionLink(Model.UserName, "UserInfo", "Forum", new { id = Model.UserId }, new { id = "user-name", title = "Инфо" })
+    }
+}
+

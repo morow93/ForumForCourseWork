@@ -35,5 +35,7 @@ namespace BeginApplication.Repository
         bool RemoveComment(int id);
         bool RemoveUser(UserModel user);
         bool RemoveSection(int id);
+
+        UserSummaryModel GetUserSummary(int id);
     }
 }

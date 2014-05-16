@@ -252,6 +252,7 @@
     <Compile Include="Models\SectionsModels.cs" />
     <Compile Include="Models\Paged\ThemesWithSectionModel.cs" />
     <Compile Include="Models\Paged\UserModels.cs" />
+    <Compile Include="Models\UserSummaryModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ConcreteForumRepository.cs" />
     <Compile Include="Repository\IForumRepository.cs" />
@@ -394,6 +395,8 @@
     <Content Include="Views\Admin\_Section.cshtml" />
     <Content Include="Views\Admin\_RenameSection.cshtml" />
     <Content Include="Views\Admin\_CreateSection.cshtml" />
+    <Content Include="Views\Forum\UserInfo.cshtml" />
+    <Content Include="Views\Shared\_UserAct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

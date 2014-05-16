@@ -1,0 +1,10 @@
+﻿@model BeginApplication.Models.UserSummaryModel
+
+@{
+    ViewBag.Title = "UserInfo";
+}
+
+<h2>Пользователь : @Model.UserName</h2>
+<p>Рейтинг : @if (Model.Rating == null) { <text>0</text> } else { <text>@Model.Rating</text> } </p>
+<p>Почта : @Model.Email</p>
+<p>Телефон : @Model.Mobile</p>

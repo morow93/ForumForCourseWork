@@ -8,7 +8,11 @@
             <div class="comment">
 				<div class="c-left">
 					<div class="cl-user">
-						@c.UserName
+						@Html.Partial("_UserAct", new BeginApplication.Models.ShortUserSummary
+                         {
+                             UserId = c.UserId,
+                             UserName = c.UserName
+                         })
 					</div>
 					<div class="cl-avatar">
                         @Html.Partial("_Avatar", c.UserId)

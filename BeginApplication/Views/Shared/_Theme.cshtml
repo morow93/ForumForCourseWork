@@ -2,7 +2,12 @@
 
 <div class="theme-main-part">
     <div class="theme-header">
-        <div class="theme-header-user">@Model.UserName</div>
+        <div class="theme-header-user">
+            @Html.Partial("_UserAct", new BeginApplication.Models.ShortUserSummary {
+                UserId = Model.UserId,
+                UserName = Model.UserName
+            })
+        </div>
         <div class="theme-header-date">Время @Model.CreationDate.ToShortTimeString() Дата @Model.CreationDate.ToShortDateString()</div>
         <div class="theme-header-count"> Количество сообщений в теме : @Model.CountComments</div>
     </div>
