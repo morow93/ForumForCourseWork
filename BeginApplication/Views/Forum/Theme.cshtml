@@ -1,40 +1,39 @@
 ﻿@model BeginApplication.Models.CommentsWithThemeModel
-
 @{
     ViewBag.Title = Model.Theme.ThemeTitle;
 }
+<h4>@Model.Theme.ThemeTitle</h4>
 
-<div class="theme topic-theme">
-    <div class="theme-main-part">
-        <div class="theme-header">
-            <div class="theme-header-user">
-                @Html.Partial("_UserAct", new BeginApplication.Models.ShortUserSummary
+<div class="container container-xs-height">
+    <div class="row row-sm-height post-title">
+        <div class="col-sm-6 col-xs-height">
+            <strong>Автор темы:</strong> @Html.Partial("_UserAct", new BeginApplication.Models.ShortUserSummary
                 {
-                   UserId = Model.Theme.UserId,
-                   UserName = Model.Theme.UserName
+                    UserId = Model.Theme.UserId,
+                    UserName = Model.Theme.UserName
                 })
-            </div>
-            <div class="theme-header-date">Время @Model.Theme.CreationDate.ToShortTimeString() Дата @Model.Theme.CreationDate.ToShortDateString()</div>
         </div>
-        <div class="theme-body">
-            <div class="theme-body-first">
-                @Html.Partial("_Avatar", Model.Theme.UserId)
-            </div>
-            <div class="theme-body-second">
-                <p>Название темы :</p>
-                <p>@Model.Theme.ThemeTitle</p>
-                <p>Содержание :</p>
-                <p>@Model.Theme.ThemeText</p>
-            </div>
+        <div class="col-sm-2 col-xs-height">
+            @Model.Theme.CreationDate.ToShortTimeString() , @Model.Theme.CreationDate.ToShortDateString()
+        </div>
+    </div>
+</div>
+<div class="container container-xs-height">
+    <div class="row row-sm-height post-content">
+        <div class="col-xs-2 col-xs-height">
+            @Html.Partial("_Avatar", Model.Theme.UserId)
+        </div>
+        <div class="col-xs-6 col-xs-height">
+            @Model.Theme.ThemeText
         </div>
     </div>
 </div>
 
 @Html.Partial("_CommentsMenu", Model)
 @Html.Partial("_PagedComments", Model)
-@if (Model.TotalItems > 0) 
-{ 
-    @Html.Partial("_CommentsMenu", Model) 
+@if (Model.TotalItems > 0)
+{
+    @Html.Partial("_CommentsMenu", Model)
 }
 @if (Request.IsAuthenticated)
 {

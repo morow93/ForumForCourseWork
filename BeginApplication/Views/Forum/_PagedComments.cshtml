@@ -1,64 +1,60 @@
-﻿@model BeginApplication.Models.CommentsWithThemeModel 
+﻿@model BeginApplication.Models.CommentsWithThemeModel
 
 @if (Model != null)
 {
     <div class="theme-comments">
         @foreach (var c in Model.PagedComments)
-        {           
-            <div class="comment">
-				<div class="c-left">
-					<div class="cl-user">
-						@Html.Partial("_UserAct", new BeginApplication.Models.ShortUserSummary
-                         {
-                             UserId = c.UserId,
-                             UserName = c.UserName
-                         })
-					</div>
-					<div class="cl-avatar">
-                        @Html.Partial("_Avatar", c.UserId)
-					</div>
-				</div>
-				<div class="c-right">
-					<div class="cr-header">
-						<div class="crh-date-time">
-							Время @c.CreationDate.ToShortTimeString() Дата @c.CreationDate.ToShortDateString()
-						</div>
-                        @if (Request.IsAuthenticated)
-                        {
-                            var target = "id" + c.CommentId.ToString();
-                                
-                            <div class="crh-vote-button">								    
-                                @using (Ajax.BeginForm("_GetCommentData", "Forum", new BeginApplication.Models.CommentInfo(c), new AjaxOptions { UpdateTargetId = target, InsertionMode = InsertionMode.Replace }, null))
-                                {
-                                    <div class="crh-vote" id="@target">
-                                        @Html.Partial("_GetCommentData", c)
-                                    </div>
-                                    <div class="crh-button">
-                                        <input type="submit" value="Проголосовать" />
-                                    </div>                                        
-                                }								    
-							</div>                            
-                        }
-                        else
-                        {  
-                            <div class="crh-vote-button">
-                                <div class="crh-vote">
-                                    @Html.Partial("_GetCommentData", c)
+        {
+            <div class="answer-container">
+                <div class="container container-xs-height">
+                    <div class="row row-sm-height post-title">
+                        <div class="col-sm-4 col-xs-height">
+                            @Html.Partial("_UserAct", new BeginApplication.Models.ShortUserSummary
+                             {
+                                 UserId = c.UserId,
+                                 UserName = c.UserName
+                             })
+                            @if (Roles.IsUserInRole("moder") || Roles.IsUserInRole("admin"))
+                            {
+                                @Html.ActionLink("Удалить комментарий", "RemoveComment", "Forum", new { id = c.CommentId, theme = Model.Theme.ThemeId, path = Request.Url.AbsoluteUri }, new { @class = "del-comment-ref" })
+                            }
+                        </div>
+                        <div class="col-sm-2 col-xs-height">
+                            @c.CreationDate.ToShortTimeString()  , @c.CreationDate.ToShortDateString()
+                        </div>
+                        <div style="text-align: right;" class="col-sm-2 col-xs-height last">
+
+                            @if (Request.IsAuthenticated)
+                            {
+                                var target = "id" + c.CommentId.ToString();
+
+                                <div>
+                                    @using (Ajax.BeginForm("_GetCommentData", "Forum", new BeginApplication.Models.CommentInfo(c), new AjaxOptions { UpdateTargetId = target, InsertionMode = InsertionMode.Replace }, null))
+                                    {
+                                        <div style="display: -webkit-inline-box;" id="@target">  @Html.Partial("_GetCommentData", c) </div>
+                                        <input class="btn btn-xs btn-default" type="submit" value="Проголосовать" />
+                                    }
                                 </div>
-                            </div>
-                        }
-					</div>
-					<div class="cr-body">
-						@c.CommentText
-					</div>
-				</div>  
-			</div>		
-            <div class="comment-sub-part">
-                @if (Roles.IsUserInRole("moder") || Roles.IsUserInRole("admin"))
-                {
-                    @Html.ActionLink("Удалить комментарий", "RemoveComment", "Forum", new { id = c.CommentId, theme = Model.Theme.ThemeId , path = Request.Url.AbsoluteUri }, new { @class = "del-comment-ref"})
-                }
+                            }
+                            else
+                            {
+                                @Html.Partial("_GetCommentData", c)
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="container container-xs-height">
+                    <div class="row row-sm-height post-content">
+                        <div class="col-xs-2 col-xs-height">
+                            @Html.Partial("_Avatar", c.UserId)
+                        </div>
+                        <div class="col-xs-6 col-xs-height">
+                            @c.CommentText
+                        </div>
+                    </div>
+                </div>
             </div>
+
         }
     </div>
 }
