@@ -65,7 +65,8 @@ namespace BeginApplication.Controllers
         [AllowAnonymous]
         public ActionResult Theme(int id, int page = 1)
         {
-            var commentsByTheme = repository.GetCommentsByTheme(id);
+            var isModer = User.IsInRole("moder") || User.IsInRole("admin");
+            var commentsByTheme = repository.GetCommentsByTheme(id, isModer);
             var model = new CommentsWithThemeModel
             {
                 TotalItems = commentsByTheme.Count,
@@ -214,8 +215,17 @@ namespace BeginApplication.Controllers
                     CommentText = comment.CommentText,
                     CreationDate = DateTime.Now
                 };
-                repository.AddComment(ToAdd);
-                TempData["success"] = "Сообщение создано.";
+                if (User.IsInRole("moder") || User.IsInRole("admin"))
+                {
+                    ToAdd.IsAdmitted = true;
+                    repository.AddComment(ToAdd);
+                    TempData["success"] = "Сообщение создано.";
+                }
+                else
+                {
+                    repository.AddComment(ToAdd); 
+                    TempData["success"] = "Сообщение добавлено, но будет показано только после проверки модератором.";
+                }               
             }
             else
             {

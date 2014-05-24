@@ -4,7 +4,7 @@
 { 
     Model.Target = "section" + Model.SectionId; 
     <div id="@Model.Target">
-        Название раздела : @Model.SectionTitle 
+        Название раздела : @Html.ActionLink(Model.SectionTitle, "Section", "Forum", new { id = (int)Model.SectionId }, null)
         @Ajax.ActionLink("Переименовать", "_RenameSection", "Admin", Model, 
         new AjaxOptions {
             UpdateTargetId = Model.Target, 

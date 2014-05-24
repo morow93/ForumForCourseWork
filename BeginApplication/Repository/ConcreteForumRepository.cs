@@ -1,5 +1,6 @@
 ﻿using BeginApplication.Context;
 using BeginApplication.Models;
+using BeginApplication.Models.Paged;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -41,19 +42,9 @@ namespace BeginApplication.Repository
             get { return context.Comments; }
         }
 
-        public IQueryable<File> Files
-        {
-            get { return context.Files; }
-        }
-
         public IQueryable<Like> Likes
         {
             get { return context.Likes; }
-        }
-
-        public IQueryable<Message> Messages
-        {
-            get { return context.Messages; }
         }
 
         #endregion
@@ -79,7 +70,7 @@ namespace BeginApplication.Repository
                         ThemeId = groupResult.Key.ThemeId,
                         ThemeTitle = groupResult.Key.ThemeTitle,
                         CreationDate = groupResult.Key.CreationDate,
-                        CountComments = groupResult.Select(c => c.comments.CommentId).Count(x => x != null)
+                        CountComments = groupResult.Where(x => x.comments.IsAdmitted).Select(c => c.comments.CommentId).Count(x => x != null)
                     }).OrderByDescending(ti => ti.CreationDate).Take(count).ToList();
         }
 
@@ -97,7 +88,7 @@ namespace BeginApplication.Repository
                              SectionId = groupResult.Key.SectionId,
                              SectionTitle = groupResult.Key.SectionTitle,
                              ThemeCount = groupResult.Select(s => s.themes.ThemeId).Distinct().Count(x => x != null),
-                             CommentCount = groupResult.Select(s => s.comments.CommentId).Count(x => x != null)
+                             CommentCount = groupResult.Where(x => x.comments.IsAdmitted).Select(s => s.comments.CommentId).Count(x => x != null)
                          }).OrderBy(x => x.SectionId).ToList();
             return query;
         }
@@ -122,13 +113,13 @@ namespace BeginApplication.Repository
                         ThemeId = groupResult.Key.ThemeId,
                         ThemeTitle = groupResult.Key.ThemeTitle,
                         CreationDate = groupResult.Key.CreationDate,
-                        CountComments = groupResult.Select(c => c.comments.CommentId).Count(x => x != null)                             
+                        CountComments = groupResult.Where(x => x.comments.IsAdmitted).Select(c => c.comments.CommentId).Count(x => x != null)                             
                     }).OrderByDescending(ti => ti.CreationDate).ToList();
         }
 
-        public List<CommentInfo> GetCommentsByTheme(int id)
+        public List<CommentInfo> GetCommentsByTheme(int id, bool isModer)
         {
-            return context.Comments.Where(c => c.ThemeId == id).Select(x => new CommentInfo
+            return context.Comments.Where(c => c.ThemeId == id && c.IsAdmitted).Select(x => new CommentInfo
                     {
                         CommentId = x.CommentId,
                         CommentText = x.CommentText,
@@ -137,6 +128,20 @@ namespace BeginApplication.Repository
                         UserId = x.User.UserId,
                         CommentVote = x.Like.Where(y => y.CommentId == x.CommentId).Sum(z => z.Vote) == null ? 0 : x.Like.Where(y => y.CommentId == x.CommentId).Sum(z => z.Vote)
                     }).OrderBy(c => c.CreationDate).ToList();
+        }
+
+        public List<CommentAdmittedInfo> GetNotAdmittedComments()
+        {
+            return context.Comments.Where(c => !c.IsAdmitted).Select(c => new CommentAdmittedInfo
+            {
+                CommentId = c.CommentId,
+                CommentText = c.CommentText,
+                CreationDate = c.CreationDate,
+                ThemeId = c.ThemeId,
+                ThemeTitle = c.Theme.ThemeTitle,
+                UserId = c.UserId,
+                UserName = c.User.UserName ?? "Удаленный пользователь"
+            }).OrderByDescending(c => c.CreationDate).ToList();
         }
 
         #endregion
@@ -388,6 +393,26 @@ namespace BeginApplication.Repository
                 Mobile = x.UserProperty.ShowMobile ? (string.IsNullOrEmpty(x.Mobile) ? "пользователь не указал телефон" : x.Mobile) : "пользователь скрыл телефон",
             }).FirstOrDefault();
             return result;
+        }
+
+        public bool AdmittComment(int id)
+        {
+            try
+            {
+                var comment = context.Comments.FirstOrDefault(c => c.CommentId == id);
+
+                if (!comment.IsAdmitted)
+                    comment.IsAdmitted = true;
+                else
+                    throw new Exception("Не должно вылетать");
+
+                context.SaveChanges();
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

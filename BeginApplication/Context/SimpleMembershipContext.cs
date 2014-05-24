@@ -22,8 +22,6 @@ namespace BeginApplication.Context
         public DbSet<Section> Sections { get; set; }
         public DbSet<Theme> Themes { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<File> Files { get; set; }
-        public DbSet<Message> Messages { get; set; }
         public DbSet<Like> Likes { get; set; }
         public DbSet<UserProperty> UserProperties { get; set; }
 

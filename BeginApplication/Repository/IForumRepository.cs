@@ -1,5 +1,6 @@
 ﻿using BeginApplication.Context;
 using BeginApplication.Models;
+using BeginApplication.Models.Paged;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,16 +13,15 @@ namespace BeginApplication.Repository
         IQueryable<UserProfile> UserProfiles { get; }
         IQueryable<UserProperty> UserProperties { get; }
         IQueryable<Section> Sections { get; }
-        IQueryable<Message> Messages { get; }
         IQueryable<Theme> Themes { get; }
         IQueryable<Comment> Comments { get; }
-        IQueryable<File> Files { get; }
         IQueryable<Like> Likes { get; }
         
         List<SectionInfo> GetForumSections();
         List<ThemeInfo> GetRecentThemes(int count);        
-        List<ThemeInfo> GetThemesBySection(int id);        
-        List<CommentInfo> GetCommentsByTheme(int id);
+        List<ThemeInfo> GetThemesBySection(int id);
+        List<CommentInfo> GetCommentsByTheme(int id, bool isModer);
+        List<CommentAdmittedInfo> GetNotAdmittedComments();
 
         void AddTheme(Theme theme);
         void AddComment(Comment comment);
@@ -37,5 +37,6 @@ namespace BeginApplication.Repository
         bool RemoveSection(int id);
 
         UserSummaryModel GetUserSummary(int id);
+        bool AdmittComment(int id);
     }
 }

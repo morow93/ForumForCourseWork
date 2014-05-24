@@ -1,0 +1,36 @@
+﻿@model BeginApplication.Models.Paged.CommentsAdmittedModel
+
+@{
+    ViewBag.Title = "GetNotAdmittedComments";
+}
+
+<h2>Модерация сообщений</h2>
+
+@if (Model.TotalItems > 10)
+{
+   @Html.Partial("_AdmittedCommentsMenu", Model)
+}
+
+@if (Model.TotalItems > 0)
+{ 
+    foreach (var comment in Model.PagedComments)
+    {
+        <div class="not-admitted-comment" style="border: 1px solid; padding: 5px; margin: 5px;">
+            <p>Тема : @Html.ActionLink(comment.ThemeTitle, "Theme", "Forum", new { id = comment.ThemeId }, null)</p>
+            <p>Содеражание сообщения : @comment.CommentText</p>
+            <p>Кем отправлено : @Html.Partial("_UserAct", new BeginApplication.Models.ShortUserSummary { UserId = comment.UserId, UserName = comment.UserName })</p>
+            <p>Когда отправлено : @comment.CreationDate</p>
+            <p>@Html.ActionLink("Удалить комментарий", "RemoveComment", "Admin", new { id = comment.CommentId, path = Request.Url.AbsoluteUri }, new { @class = "del-comment-ref" })</p>
+            <p>@Html.ActionLink("Допустить", "AdmittComment", "Admin", new { id = comment.CommentId, path = Request.Url.AbsoluteUri }, new { @class = "admit-comment-ref" })</p>
+        </div>
+    }
+}
+else
+{
+    <text>Нет сообщений подлежащих модерации</text>
+}
+
+@if (Model.TotalItems > 10)
+{
+    @Html.Partial("_AdmittedCommentsMenu", Model)
+}

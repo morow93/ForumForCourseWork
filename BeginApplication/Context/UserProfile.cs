@@ -14,8 +14,6 @@ namespace BeginApplication.Context
         public UserProfile()
         {
             this.Like = new HashSet<Like>();
-            this.MessageFrom = new HashSet<Message>();
-            this.MessageTo = new HashSet<Message>();
             this.Theme = new HashSet<Theme>();
         }
 
@@ -34,8 +32,6 @@ namespace BeginApplication.Context
         public bool IsDeleted { get; set; }
 
         public virtual ICollection<Like> Like { get; set; }
-        public virtual ICollection<Message> MessageFrom { get; set; }
-        public virtual ICollection<Message> MessageTo { get; set; }
         public virtual ICollection<Theme> Theme { get; set; }
 
         [ForeignKey("UserId")]

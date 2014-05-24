@@ -45,6 +45,7 @@ namespace BeginApplication.Controllers
         [AllowAnonymous]
         public ActionResult Login()
         {
+            if (Request.IsAuthenticated) return RedirectToAction("Home", "Index");
             return View();
         }
 
