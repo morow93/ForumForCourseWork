@@ -51,6 +51,14 @@ namespace BeginApplication.Repository
 
         #region Выборка для форума
 
+        public List<ShortThemeInfo> GetThemesByUser(int id)
+        {
+            return context.Themes.Where(t => t.UserId == id).OrderByDescending(t => t.CreationDate).Select(t => new ShortThemeInfo {
+                ThemeId = t.ThemeId,
+                ThemeTitle = t.ThemeTitle
+            }).ToList();
+        }
+
         public List<ThemeInfo> GetRecentThemes(int count)
         {
             return (from themes in context.Themes

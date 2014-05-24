@@ -20,6 +20,7 @@ namespace BeginApplication.Repository
         List<SectionInfo> GetForumSections();
         List<ThemeInfo> GetRecentThemes(int count);        
         List<ThemeInfo> GetThemesBySection(int id);
+        List<ShortThemeInfo> GetThemesByUser(int id);
         List<CommentInfo> GetCommentsByTheme(int id, bool isModer);
         List<CommentAdmittedInfo> GetNotAdmittedComments();
 

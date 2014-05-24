@@ -19,3 +19,5 @@ else
 <p>Рейтинг : @if (Model.Rating == null) { <text>0</text> } else { <text>@Model.Rating</text> } </p>
 <p>Почта : @Model.Email</p>
 <p>Телефон : @Model.Mobile</p>
+
+@Html.Action("GetThemesByUser", "Account", new { id = Model.UserId })

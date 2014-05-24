@@ -45,7 +45,7 @@ namespace BeginApplication.Controllers
         [AllowAnonymous]
         public ActionResult Login()
         {
-            if (Request.IsAuthenticated) return RedirectToAction("Home", "Index");
+            if (Request.IsAuthenticated) return RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -104,6 +104,7 @@ namespace BeginApplication.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            if (Request.IsAuthenticated) return RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -421,6 +422,13 @@ namespace BeginApplication.Controllers
                 }
             }
             return RedirectToAction("Index");
+        }
+
+        public PartialViewResult GetThemesByUser(int? id)
+        {
+            int _id = id ?? WebSecurity.CurrentUserId;
+            var model = repository.GetThemesByUser(_id);
+            return PartialView(model);
         }
 
         #endregion

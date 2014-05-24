@@ -9,4 +9,10 @@ namespace BeginApplication.Models
     {
         public List<ThemeInfo> Themes { get; set; }
     }
+
+    public class ShortThemeInfo
+    {
+        public string ThemeTitle { get; set; }
+        public int ThemeId { get; set; }
+    }
 }
