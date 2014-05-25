@@ -20,4 +20,6 @@ else
 <p>Почта : @Model.Email</p>
 <p>Телефон : @Model.Mobile</p>
 
-@Html.Action("GetThemesByUser", "Account", new { id = Model.UserId })
+<div id="user-themes-target">
+    @Html.Action("GetThemesByUser", "Account", new { id = Model.UserId })
+</div>

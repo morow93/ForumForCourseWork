@@ -55,7 +55,8 @@ namespace BeginApplication.Repository
         {
             return context.Themes.Where(t => t.UserId == id).OrderByDescending(t => t.CreationDate).Select(t => new ShortThemeInfo {
                 ThemeId = t.ThemeId,
-                ThemeTitle = t.ThemeTitle
+                ThemeTitle = t.ThemeTitle,
+                CreationDate = t.CreationDate
             }).ToList();
         }
 
