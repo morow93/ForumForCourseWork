@@ -2,14 +2,22 @@
     ViewBag.Title = "Раздел администрирования";
 }
 
-<h2>Раздел аминистрирования</h2>
+<h2>Раздел управления сайтом</h2>
 
-<ul>
-    <li>@Html.ActionLink("Управление пользователями", "GetUsers", "Admin", null, null)</li>
-    <li>@Html.ActionLink("Управление существующими разделами", "GetSections", "Admin", null, null)</li>
-    <li><a href="#" id="show-form-create-section">Создание нового раздела</a></li>
-</ul>
+@if (User.IsInRole("admin"))
+{ 
+    <ul>
+        <li>@Html.ActionLink("Управление пользователями", "GetUsers", "Admin", null, null)</li>
+        <li>@Html.ActionLink("Управление существующими разделами", "GetSections", "Admin", null, null)</li>        
+        <li>@Html.ActionLink("Модерация сообщений", "GetNotAdmittedComments", "Admin", null, new { @class = "similar-href"})</li>
+        <li><a href="#" id="show-form-create-section">Создание нового раздела</a></li>
+    </ul>
 
-<div id="here-target" class="there-target">
-    @Html.Partial("_CreateSection", null)
-</div>
+    <div id="here-target" class="there-target">
+        @Html.Partial("_CreateSection", null)
+    </div>
+}
+else if (User.IsInRole("moder"))
+{
+    @Html.ActionLink("Модерация сообщений", "GetNotAdmittedComments", "Admin", null, new { @class = "similar-href" })
+}

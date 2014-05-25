@@ -4,24 +4,22 @@
     ViewBag.Title = Model.Section.SectionTitle;
 }
 
-<h2>@Model.Section.SectionTitle</h2>
+<h2>@Model.Section.SectionTitle. Темы</h2>
 
-<div class="form-theme-searching">
-    @using (Html.BeginForm("Section", "Forum", new { searching = Model.SearchingString, page = 1 }, FormMethod.Get, null))
-    {
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="input-group">
-                    @Html.TextBox("searching", (string)Model.SearchingString, new { @class = "form-control" })
-                    @Html.Hidden("id", Model.Section.SectionId)
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit">Поиск</button>
-                    </span>
-                </div>
-            </div>
-        </div>
-    }
-</div>
+@if (Model.TotalItems > 0)
+{ 
+    <div class="form-theme-searching">
+        @using (Html.BeginForm("Section", "Forum", new { searching = Model.SearchingString, page = 1 }, FormMethod.Get, null))
+        {
+            <text>
+                Поиск :  
+                @Html.TextBox("searching", (string)Model.SearchingString)
+                @Html.Hidden("id", Model.Section.SectionId)
+                <input type="submit" value="Поиск" />
+            </text>
+        }
+    </div>
+}
 
 @Html.Partial("_ThemesMenu", Model)
 

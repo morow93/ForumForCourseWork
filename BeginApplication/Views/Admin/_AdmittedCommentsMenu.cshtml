@@ -1,21 +1,9 @@
-﻿@model BeginApplication.Models.CommentsWithThemeModel
+﻿@model BeginApplication.Models.Paged.CommentsAdmittedModel
 
-@if (User.Identity.IsAuthenticated || Model.TotalItems > 10)
-{
-    <div class="comment-menu">
-        @if (User.Identity.IsAuthenticated)
-        {
-            <div class="comment-menu-add">
-                <input type="button" class="btn btn-sm btn-default buttonShow" value="Добавить комментарий" />
-            </div>
-        }
-        @if (Model.TotalItems > 10)
-        {
-            <div class="comment-menu-page">
-
-                @Html.PagedListPager(
+<div class="not-admitted-comment-menu-page" style="border: 1px; padding: 5px;">
+    @Html.PagedListPager(
                     (IPagedList)Model.PagedComments,
-                    page => Url.Action("Theme", "Forum", new { id = Model.Theme.ThemeId, page }),
+                    page => Url.Action("GetNotAdmittedComments", "Admin", new { page }),
                     new PagedListRenderOptions
                     {
                         LinkToFirstPageFormat = String.Format("<< Первая страница"),
@@ -29,7 +17,5 @@
                         DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded
                     }
                 )
-            </div>
-        }
-    </div>
-}
+</div>
+

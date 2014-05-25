@@ -12,7 +12,6 @@ namespace BeginApplication.Context
     {
         public Comment()
         {
-            this.File = new HashSet<File>();
             this.Like = new HashSet<Like>();
         }
 
@@ -23,12 +22,12 @@ namespace BeginApplication.Context
         public int UserId { get; set; }
         public string CommentText { get; set; }
         public System.DateTime CreationDate { get; set; }
+        public bool IsAdmitted { get; set; }
 
         [ForeignKey("ThemeId")]
         public virtual Theme Theme { get; set; }
         [ForeignKey("UserId")]
         public virtual UserProfile User { get; set; }
-        public virtual ICollection<File> File { get; set; }
         public virtual ICollection<Like> Like { get; set; }
     }
 }

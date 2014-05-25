@@ -211,9 +211,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Dependency\Bootstrapper.cs" />
     <Compile Include="Context\Comment.cs" />
-    <Compile Include="Context\File.cs" />
     <Compile Include="Context\Like.cs" />
-    <Compile Include="Context\Message.cs" />
     <Compile Include="Context\Section.cs" />
     <Compile Include="Context\SimpleMembershipContext.cs" />
     <Compile Include="Context\Theme.cs" />
@@ -241,10 +239,15 @@
     <Compile Include="Migrations\201405050700139_DeleteTheme.Designer.cs">
       <DependentUpon>201405050700139_DeleteTheme.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201405241642477_isAdmited.cs" />
+    <Compile Include="Migrations\201405241642477_isAdmited.Designer.cs">
+      <DependentUpon>201405241642477_isAdmited.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Add\AddCommentModel.cs" />
     <Compile Include="Models\Add\AddThemeModel.cs" />
+    <Compile Include="Models\Paged\CommentAdmittedModel.cs" />
     <Compile Include="Models\Paged\CommentsWithThemeModel.cs" />
     <Compile Include="Models\Cabinet\PrivateCabinetModel.cs" />
     <Compile Include="Models\Cabinet\PrivatePropertiesModel.cs" />
@@ -397,6 +400,9 @@
     <Content Include="Views\Admin\_CreateSection.cshtml" />
     <Content Include="Views\Forum\UserInfo.cshtml" />
     <Content Include="Views\Shared\_UserAct.cshtml" />
+    <Content Include="Views\Admin\GetNotAdmittedComments.cshtml" />
+    <Content Include="Views\Admin\_AdmittedCommentsMenu.cshtml" />
+    <Content Include="Views\Account\GetThemesByUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -413,6 +419,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201405050700139_DeleteTheme.resx">
       <DependentUpon>201405050700139_DeleteTheme.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405241642477_isAdmited.resx">
+      <DependentUpon>201405241642477_isAdmited.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

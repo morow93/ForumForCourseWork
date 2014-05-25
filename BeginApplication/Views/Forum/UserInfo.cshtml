@@ -4,7 +4,20 @@
     ViewBag.Title = "UserInfo";
 }
 
-<h2>Пользователь : @Model.UserName</h2>
+@if (Roles.IsUserInRole(Model.UserName, "moder"))
+{
+    <h2>@Model.UserName, Модератор</h2>
+}
+else if (Roles.IsUserInRole(Model.UserName, "admin"))
+{
+    <h2>@Model.UserName, Администратор</h2>
+}
+else
+{
+    <h2>@Model.UserName, Пользователь</h2>
+}
 <p>Рейтинг : @if (Model.Rating == null) { <text>0</text> } else { <text>@Model.Rating</text> } </p>
 <p>Почта : @Model.Email</p>
 <p>Телефон : @Model.Mobile</p>
+
+@Html.Action("GetThemesByUser", "Account", new { id = Model.UserId })

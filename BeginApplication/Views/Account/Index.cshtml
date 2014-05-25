@@ -41,8 +41,22 @@
         
     </div>
     <div class="third-column">
+        @if (Roles.IsUserInRole("moder"))
+        {
+            <text>Роль : Модератор</text>
+        }
+        else if (Roles.IsUserInRole("admin"))
+        {
+            <text>Роль : Администратор</text>
+        }
+        else
+        {
+            <text>Роль : Пользователь</text>
+        }
         <p>Рейтинг : @Model.UserRating </p>
         <p>Дата регистрации : @Model.RegistrationDate.ToShortDateString()</p> 
         <p>Время регистрации : @Model.RegistrationDate.ToShortTimeString()</p>
     </div>
 </div>
+
+@Html.Action("GetThemesByUser", "Account")

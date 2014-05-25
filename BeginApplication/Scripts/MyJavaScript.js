@@ -23,6 +23,11 @@
         }
     });
 
+    $(".admit-comment-ref").click(function () {
+        var answer = confirm('Вы действительно хотите допустить сообщение?');
+        return answer;
+    });
+
     $(".del-comment-ref").click(function () {
         var answer = confirm('Вы действительно хотите удалить сообщение?');
         return answer;        

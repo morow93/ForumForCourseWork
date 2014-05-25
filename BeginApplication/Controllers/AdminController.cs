@@ -12,10 +12,11 @@ using WebMatrix.WebData;
 using PagedList;
 using BeginApplication.Helpers;
 using System.Net;
+using BeginApplication.Models.Paged;
 
 namespace BeginApplication.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin,moder")]
     [InitializeSimpleMembership]
     public class AdminController : Controller
     {
@@ -26,6 +27,7 @@ namespace BeginApplication.Controllers
             repository = _repository;
         }
 
+        [Authorize(Roles = "admin,moder")]
         public ActionResult Index()
         {
             return View();
@@ -33,6 +35,7 @@ namespace BeginApplication.Controllers
 
         #region Получить данные для изменения
 
+        [Authorize(Roles = "admin")]
         public ActionResult GetUsers(string sortOrder, string currentFilter, string searchString, int page = 1)
         {
             ViewBag.CurrentSort = sortOrder;
@@ -109,22 +112,75 @@ namespace BeginApplication.Controllers
     
             return View(model);  
         }
-        
+
+        [Authorize(Roles = "admin")]
         public ActionResult GetSections()
         {
             return View(repository.Sections.Select(x => new ChangeSectionModel { SectionId = x.SectionId, SectionTitle = x.SectionTitle }).ToList());
         }
 
+        #region Модерация сообщений
+
+        [Authorize(Roles = "admin,moder")]
+        public ActionResult GetNotAdmittedComments(int page = 1)
+        {
+            var notAdmittedComments = repository.GetNotAdmittedComments();
+            var model = new CommentsAdmittedModel { PagedComments = (PagedList<CommentAdmittedInfo>)notAdmittedComments.ToPagedList(page, 10), TotalItems = notAdmittedComments.Count };
+
+            int countPages = (int)Math.Ceiling((double)model.TotalItems / (double)10);
+            if (countPages != 0 && page > countPages)
+            {
+                while (page > countPages) page--;
+                return RedirectToAction("GetNotAdmittedComments", "Admin", new { page = page });
+            }
+            
+            return View(model);
+        }
+
+        [Authorize(Roles = "admin,moder")]
+        public ActionResult RemoveComment(int id, string path)
+        {
+            var result = repository.RemoveComment(id);
+            if (result)
+                TempData["success"] = "Комментарий был удален.";
+            else
+                TempData["failure"] = "Комментарий не был удален.";
+
+            if (path.RemoteFileExists())
+                return Redirect(path);
+            else
+                return RedirectToAction("GetNotAdmittedComments", "Admin", new { page = Math.Ceiling((double)repository.Comments.Where(c => !c.IsAdmitted).Count() / 10) });
+        }
+
+        [Authorize(Roles = "admin,moder")]
+        public ActionResult AdmittComment(int id, string path)
+        {
+            var result = repository.AdmittComment(id);
+            if (result)
+                TempData["success"] = "Комментарий был допущен.";
+            else
+                TempData["failure"] = "Комментарий не был допущен.";
+
+            if (path.RemoteFileExists())
+                return Redirect(path);
+            else
+                return RedirectToAction("GetNotAdmittedComments", "Admin", new { page = Math.Ceiling((double)repository.Comments.Where(c => !c.IsAdmitted).Count() / 10) });
+        }
+
+        #endregion
+
         #endregion
 
         #region Переименование раздела
 
+        [Authorize(Roles = "admin")]
         public ActionResult _RenameSection(ChangeSectionModel section)
         {
             return PartialView(section);
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public ActionResult _SubmitSectionChange(ChangeSectionModel section)
         {
             using (var context = new SimpleMembershipContext())
@@ -152,6 +208,7 @@ namespace BeginApplication.Controllers
             return PartialView("_Section", section);
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult _HideRenameForm(ChangeSectionModel section)
         {
             return PartialView("_Section", section);
@@ -161,6 +218,7 @@ namespace BeginApplication.Controllers
 
         #region Изменить роль пользователя
 
+        [Authorize(Roles = "admin")]
         public string GetChangeRoleUrl(int id, string path)
         {
             var linkText = String.Empty;
@@ -179,6 +237,7 @@ namespace BeginApplication.Controllers
             return linkText;
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult ChangeRole(int id, string role, string path)
         {
             if (string.IsNullOrEmpty(role))            
@@ -193,7 +252,8 @@ namespace BeginApplication.Controllers
         }
 
         #endregion
-        
+
+        [Authorize(Roles = "admin")]
         public ActionResult RemoveUser(UserModel user)
         {
             if (ModelState.IsValid)
@@ -216,6 +276,7 @@ namespace BeginApplication.Controllers
             return PartialView("_User", user);
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult RemoveSection(ChangeSectionModel section)
         {
             if (ModelState.IsValid)
@@ -238,6 +299,7 @@ namespace BeginApplication.Controllers
             return PartialView("_Section", section);
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult CreateSection(ChangeSectionModel model)
         {
             if (ModelState.IsValid)

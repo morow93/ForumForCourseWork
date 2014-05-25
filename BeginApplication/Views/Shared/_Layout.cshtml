@@ -19,7 +19,7 @@
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/">Kursach Forum</a>
+                <a class="navbar-brand" href="/">Лого</a>
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
@@ -37,7 +37,15 @@
                 {
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            @Html.ActionLink("Администрирование", "Index", new { controller = "Admin" }, htmlAttributes: new { id = "admin-tools" })
+                            @Html.ActionLink("Управление сайтом", "Index", new { controller = "Admin" }, htmlAttributes: new { id = "admin-tools" })
+                        </li>
+                    </ul>
+                }
+                else if (Roles.IsUserInRole("moder"))
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            @Html.ActionLink("Модерация сообщений", "GetNotAdmittedComments", new { controller = "Admin" }, htmlAttributes: new { id = "moder-tools" })
                         </li>
                     </ul>
                 }
