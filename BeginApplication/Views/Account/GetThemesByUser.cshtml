@@ -1,11 +1,22 @@
-﻿@model List<BeginApplication.Models.ShortThemeInfo>
+﻿@model BeginApplication.Models.UserThemesModel
 
-Тем : @Model.Count
+Тем : @Model.TotalItems
 
-@if (Model.Count != 0)
+@if (Model.TotalItems > 10)
+{
+    @Html.Partial("UserThemesMenu", Model)
+}
+
+@if (Model.TotalItems != 0)
 { 
-    foreach (var theme in Model)
+    foreach (var theme in Model.PagedThemes)
     {
         <p>@Html.ActionLink(theme.ThemeTitle, "Theme", "Forum", new { id = theme.ThemeId}, null)</p>
+        <p>@theme.CreationDate.ToShortDateString(), @theme.CreationDate.ToShortTimeString()</p>
     }
+}
+
+@if (Model.TotalItems > 10)
+{
+    @Html.Partial("UserThemesMenu", Model)
 }

@@ -429,10 +429,9 @@ namespace BeginApplication.Controllers
 
         public PartialViewResult GetThemesByUser(int? id, int page = 1)
         {
-            int _id = id ?? WebSecurity.CurrentUserId;
-            var userThemes = repository.GetThemesByUser(_id);
-            var model = new UserThemesModel { PagedThemes = (PagedList<ShortThemeInfo>)userThemes.ToPagedList(page, 10), TotalItems = userThemes.Count, UserId = _id };
+            var userThemes = repository.GetThemesByUser(id ?? WebSecurity.CurrentUserId);
+            var model = new UserThemesModel { PagedThemes = (PagedList<ShortThemeInfo>)userThemes.ToPagedList(page, 10), TotalItems = userThemes.Count, UserId = id };
             return PartialView(model);
-        }
+        } 
     }
 }

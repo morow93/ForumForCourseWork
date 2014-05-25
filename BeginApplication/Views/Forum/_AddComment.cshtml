@@ -1,21 +1,23 @@
 ﻿@model BeginApplication.Models.AddCommentModel
 
-<div id="add-comment-block" class="add-comment" style="overflow: auto;">
+<div class="add-comment" style="overflow: auto;">
     @using (Html.BeginForm("_AddComment", "Forum", new { UserId = Model.UserId, ThemeId = Model.ThemeId }, FormMethod.Post, new { id = "add-comment-form" }))
     {
         @Html.ValidationSummary()
 
         <fieldset>
             <legend>Форма отправки комментария</legend>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.CommentText)
+            </div>
             <div class="editor-field">
-                @Html.TextAreaFor(m => m.CommentText, new { @rows = "7", @cols = "50" })
+                @Html.TextBoxFor(m => m.CommentText)
             </div>
 
-            <input type="submit" class="btn btn-sm btn-default toAnchorButton" value="Отправить комментарий" />
+            <input type="submit" value="Отправить комментарий" class="toAnchorButton" />
         </fieldset>
     }
 </div>
-<script>
-    $('#add-comment-block').hide();
-</script>
+
 

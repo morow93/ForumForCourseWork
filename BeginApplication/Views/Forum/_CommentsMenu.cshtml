@@ -1,12 +1,12 @@
 ﻿@model BeginApplication.Models.CommentsWithThemeModel
 
 @if (User.Identity.IsAuthenticated || Model.TotalItems > 10)
-{
+{ 
     <div class="comment-menu">
         @if (User.Identity.IsAuthenticated)
         {
-            <div class="comment-menu-add">
-                <input type="button" class="btn btn-sm btn-default buttonShow" value="Добавить комментарий" />
+            <div class="comment-menu-add">       
+                <input type="button" class="btn btn-sm btn-default buttonShow" value="Добавить комментарий"/>
             </div>
         }
         @if (Model.TotalItems > 10)
@@ -28,8 +28,10 @@
                         DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
                         DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded
                     }
-                )
+                )        
             </div>
         }
     </div>
 }
+
+

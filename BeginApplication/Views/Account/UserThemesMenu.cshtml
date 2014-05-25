@@ -1,0 +1,30 @@
+﻿@model BeginApplication.Models.UserThemesModel
+
+@Html.PagedListPager(
+        Model.PagedThemes,
+        page => Url.Action("GetThemesByUser", new { page, id = Model.UserId }),
+
+        PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
+            new PagedListRenderOptions
+            {
+                //LinkToFirstPageFormat = "<<",
+                //LinkToPreviousPageFormat = "Назад",
+                //LinkToNextPageFormat = "Вперед",
+                //LinkToLastPageFormat = ">>"
+                LinkToFirstPageFormat = String.Format("<< Первая страница"),
+                LinkToPreviousPageFormat = String.Format("<"),
+                LinkToNextPageFormat = String.Format(">"),
+                LinkToLastPageFormat = String.Format("Последняя страница >>"),
+                MaximumPageNumbersToDisplay = 1,
+                DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
+                DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded
+            },
+            new AjaxOptions()
+            {
+                HttpMethod = "GET",
+                UpdateTargetId = "user-themes-target"
+            })
+    )
+
