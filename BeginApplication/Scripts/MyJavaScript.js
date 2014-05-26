@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-
+    $(".section-form-to-hide").hide();
     $(".buttonShow").on('click', function () {
         $("#add-comment-form").show("slow");
         window.location.hash = "#add-comment-form";

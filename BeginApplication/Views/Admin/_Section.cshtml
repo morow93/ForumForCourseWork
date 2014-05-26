@@ -3,20 +3,32 @@
 @if (Model != null)
 { 
     Model.Target = "section" + Model.SectionId; 
-    <div id="@Model.Target">
-        Название раздела : @Html.ActionLink(Model.SectionTitle, "Section", "Forum", new { id = (int)Model.SectionId }, null)
-        @Ajax.ActionLink("Переименовать", "_RenameSection", "Admin", Model, 
-        new AjaxOptions {
-            UpdateTargetId = Model.Target, 
-            HttpMethod = "GET", 
-            InsertionMode = InsertionMode.Replace 
-        }, null) 
-        @Ajax.ActionLink("Удалить", "RemoveSection", "Admin", Model, new AjaxOptions
-            {
-                UpdateTargetId = Model.Target,
-                HttpMethod = "GET",
-                InsertionMode = InsertionMode.Replace,
-                OnFailure = "OnFailureRemoveSection"
-            }, new { @class = "del-section-ref" })
+    <div id="@Model.Target" class="row topic-link-line section-link-line">
+        <div class="col-md-7">
+            @Html.ActionLink(Model.SectionTitle, "Section", "Forum", new { id = (int)Model.SectionId }, null)
+        </div>
+        <div class="col-md-2">
+            @Ajax.ActionLink("Переименовать", "_RenameSection", "Admin", Model,
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = Model.Target,
+                        HttpMethod = "GET",
+                        InsertionMode = InsertionMode.Replace
+                    }, null)
+        </div>
+        <div class="col-md-2 last">
+            <small>
+                @Ajax.ActionLink("Удалить", "RemoveSection", "Admin", Model, new AjaxOptions
+                        {
+                            UpdateTargetId = Model.Target,
+                            HttpMethod = "GET",
+                            InsertionMode = InsertionMode.Replace,
+                            OnFailure = "OnFailureRemoveSection"
+                        }, new { @class = "del-section-ref" })
+            </small>
+        </div>
     </div>
 }
+
+
+

@@ -13,15 +13,15 @@
     }, new { @class = "section-form-to-hide"}))
 {    
     <fieldset>
-        <legend>Создание раздела</legend>
-
-        <div class="editor-label">
-            @Html.Label("Название раздела")
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="input-group">
+                    @Html.TextBoxFor(x => x.SectionTitle, new { @class = "form-control", placeholder = "Название раздела" })
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">Создать</button>
+                    </span>
+                </div>
+            </div>
         </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(x=>x.SectionTitle)
-        </div>
-        
-        <input class="submit-creation-section" type="submit" value="Создать новый раздел" />
     </fieldset>
 }

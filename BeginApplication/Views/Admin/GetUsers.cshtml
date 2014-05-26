@@ -3,51 +3,59 @@
 @{
     ViewBag.Title = "Управление пользователями.";
 }
-<div class="users-container" style="overflow: hidden;">
+<div class="users-container">
     <div class="form-user-searching">
         @using (Html.BeginForm("GetUsers", "Admin", FormMethod.Get))
         {
-            <text>
-                Поиск по имени пользователя/по почте : @Html.TextBox("searchString", ViewBag.CurrentFilter as string)
-                <input type="submit" value="Поиск" />
-            </text>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "Имя пользователя/почта" })
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">Поиск</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
         }
     </div>
     @if (Model.TotalItems != 0)
     {
-        <div class="user-data">
-            <table>
-                <tr>
-                    <th>
-                        @Html.ActionLink("Имя пользователя", "GetUsers", new
-                        {
-                            sortOrder = ViewBag.UserNameSort,
-                            currentFilter = ViewBag.CurrentFilter
-                        })
-                    </th>
-                    <th>
-                        @Html.ActionLink("Электронный адрес", "GetUsers", new
-                        {
-                            sortOrder = ViewBag.EmailSort,
-                            currentFilter = ViewBag.CurrentFilter
-                        })
-                    </th>
-                    <th>
-                        @Html.ActionLink("Дата регистрации", "GetUsers", new
-                        {
-                            sortOrder = ViewBag.RegistrationSort,
-                            currentFilter = ViewBag.CurrentFilter
-                        })
-                         
-                    </th>
-                    <th>
-                        Назначить роль
-                    </th>
-                </tr>
-                @foreach (var item in Model.PagedUsers)
-                {
-                    @Html.Partial("_User", item)
-                }
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.ActionLink("Имя пользователя", "GetUsers", new
+                            {
+                                sortOrder = ViewBag.UserNameSort,
+                                currentFilter = ViewBag.CurrentFilter
+                            })
+                        </th>
+                        <th>
+                            @Html.ActionLink("Электронный адрес", "GetUsers", new
+                            {
+                                sortOrder = ViewBag.EmailSort,
+                                currentFilter = ViewBag.CurrentFilter
+                            })
+                        </th>
+                        <th>
+                            @Html.ActionLink("Дата регистрации", "GetUsers", new
+                            {
+                                sortOrder = ViewBag.RegistrationSort,
+                                currentFilter = ViewBag.CurrentFilter
+                            })
+                        </th>
+                        <th>Назначить роль</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.PagedUsers)
+                    {
+                        @Html.Partial("_User", item)
+                    }
+                </tbody>
             </table>
         </div>
     }
@@ -86,3 +94,4 @@
         </div>
     }
 </div>
+

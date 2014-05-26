@@ -5,8 +5,9 @@
 }
 
 Разделы форума
-
-@foreach(var s in Model)
-{
-    @Html.Partial("_Section", s)
-}
+<div class="container main section-list">
+    @foreach (var s in Model)
+    {
+        @Html.Partial("_Section", s)
+    }
+</div>

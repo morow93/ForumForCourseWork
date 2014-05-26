@@ -11,24 +11,15 @@
     @Html.ValidationSummary()
 
     <fieldset>
-        <legend>Форма добавления темы</legend>
-
-        <div class="editor-label">
-            @Html.LabelFor(m => m.ThemeTitle)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(m => m.ThemeTitle)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(m => m.ThemeText)
-        </div>
-        <div class="editor-field">
-            @Html.TextAreaFor(m => m.ThemeText)
+        <div class="form-group">
+            @Html.TextBoxFor(m => m.ThemeTitle, new { @class = "form-control", placeholder = "Название темы" })
+            <br />
+            @Html.TextAreaFor(m => m.ThemeText, new { @class = "form-control", rows = "25", placeholder = "Содержание" })
         </div>
 
         @Html.Hidden("SectionId", Model.SectionId)
         @Html.Hidden("UserId", Model.UserId)
-        <input type="submit" value="Добавить тему" />
+        <button class="btn btn-default" type="submit">Добавить тему</button>
     </fieldset>
 }
+
