@@ -261,22 +261,44 @@ namespace BeginApplication.Controllers
         {
             if (ModelState.IsValid)
             { 
-                var result = repository.RemoveUser(user);
-
-                if (result)
+                try
                 {
-                    user = null;
+                    Roles.RemoveUserFromRole(user.UserName, "active");
                 }
-                else
+                catch
                 {
                     Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                }   
+                }                
             }
             else
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
             }
-            return PartialView("_User", user);
+            return PartialView("_UserManage", user);
+        }
+
+        /// <summary>
+        /// Восстановление юзера
+        /// </summary>
+        [Authorize(Roles = "admin")]
+        public ActionResult RecoveryUser(UserModel user)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Roles.AddUserToRole(user.UserName, "active");
+                }
+                catch
+                {
+                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                }  
+            }
+            else
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            }
+            return PartialView("_UserManage", user);
         }
 
         /// <summary>

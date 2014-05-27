@@ -46,8 +46,12 @@
     $(".del-user-ref").click(function () {
         var answer = confirm('Вы действительно хотите удалить пользователя?');
         return answer;
-    });
+    }); 
     
+    $(".rec-user-ref").click(function () {
+        var answer = confirm('Вы действительно хотите восстановить пользователя?');
+        return answer;
+    });
 });
 
 function OnSuccessCreateSection(data) {
@@ -64,4 +68,7 @@ function OnFailureRemoveSection(request) {
 }
 function OnFailureRemoveUser(request) {
     alert("Пользователь не был удален.");
+}
+function OnFailureRecoveryUser(request) {
+    alert("Пользователь не был восстановлен.");
 }

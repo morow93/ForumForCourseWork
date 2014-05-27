@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using WebMatrix.WebData;
 using BeginApplication.Models;
 using BeginApplication.Context;
+using System.Web.Security;
 
 namespace BeginApplication.Filters
 {
@@ -20,6 +21,16 @@ namespace BeginApplication.Filters
         {
             //Однократная инициализации при каждом запуске приложения
             LazyInitializer.EnsureInitialized(ref _initializer, ref _isInitialized, ref _initializerLock);
+
+            if (filterContext.RequestContext.HttpContext.Request.IsAuthenticated)
+            {
+                if (!Roles.IsUserInRole("active"))
+                {
+                    WebSecurity.Logout();
+                    filterContext.Controller.TempData["failure"] = "Вы были заблокированы администратором.";
+                    filterContext.Result = new RedirectResult("~/Home/Index");                   
+                }
+            }
         }
 
         private class SimpleMembershipInitializer

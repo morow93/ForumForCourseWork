@@ -22,6 +22,7 @@ else
 {
     <h2>@Model.UserName, Пользователь</h2>
 }
+<p>Статус : @if (Roles.IsUserInRole(Model.UserName, "active")) { <text>Активен</text> } else { <text>Заблокирован</text> }</p>
 <p>Рейтинг : @if (Model.Rating == null) { <text>0</text> } else { <text>@Model.Rating</text> } </p>
 <p>Почта : @Model.Email</p>
 <p>Телефон : @Model.Mobile</p>

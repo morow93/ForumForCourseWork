@@ -1,0 +1,23 @@
+﻿@model BeginApplication.Models.UserModel
+
+@if (Roles.IsUserInRole(Model.UserName, "active"))
+{
+    @Ajax.ActionLink("Заблокировать", "RemoveUser", "Admin", Model, new AjaxOptions
+                {
+                    UpdateTargetId = Model.Target,
+                    HttpMethod = "GET",
+                    InsertionMode = InsertionMode.Replace,
+                    OnFailure = "OnFailureRemoveUser"
+                }, new { @class = "del-user-ref" })
+}
+else
+{
+    @Ajax.ActionLink("Восстановить ", "RecoveryUser", "Admin", Model, new AjaxOptions
+                {
+                    UpdateTargetId = Model.Target,
+                    HttpMethod = "GET",
+                    InsertionMode = InsertionMode.Replace,
+                    OnFailure = "OnFailureRecoveryUser"
+                }, new { @class = "rec-user-ref" })
+}
+

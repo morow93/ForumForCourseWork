@@ -4,7 +4,7 @@
 { 
     Model.Target = "user" + Model.UserId;         
     
-    <tr id="@Model.Target">
+    <tr>
         <td>
             @Html.DisplayFor(m => m.UserName)
         </td>
@@ -17,14 +17,8 @@
         <td>
             @Html.Action("GetChangeRoleUrl", "Admin", new { id = Model.UserId, path = Request.Url.AbsoluteUri })
         </td>
-        <td>
-            @Ajax.ActionLink("Удалить", "RemoveUser", "Admin", Model, new AjaxOptions 
-            { 
-                UpdateTargetId = Model.Target, 
-                HttpMethod = "GET", 
-                InsertionMode = InsertionMode.Replace,
-                OnFailure = "OnFailureRemoveUser" 
-            }, new { @class = "del-user-ref" })
+        <td id="@Model.Target">
+            @Html.Partial("_UserManage",Model)
         </td>
     </tr>
 }
