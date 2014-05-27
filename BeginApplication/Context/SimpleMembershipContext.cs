@@ -17,19 +17,17 @@ namespace BeginApplication.Context
         }
 
         public DbSet<UserProfile> UserProfiles { get; set; }
-        public DbSet<webpages_Membership> webpages_Memberships { get; set; }
-
+        public DbSet<UserProperty> UserProperties { get; set; }     
         public DbSet<Section> Sections { get; set; }
         public DbSet<Theme> Themes { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Like> Likes { get; set; }
-        public DbSet<UserProperty> UserProperties { get; set; }
+
+        public DbSet<webpages_Membership> webpages_Memberships { get; set; }        
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-
-            //modelBuilder.Configurations.Add(null);
         } 
     }
 }

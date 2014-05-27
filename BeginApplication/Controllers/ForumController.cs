@@ -37,6 +37,9 @@ namespace BeginApplication.Controllers
             return View(new SectionsModel { Sections = repository.GetForumSections(curUserId) });
         }
         
+        /// <summary>
+        /// Получить темы выбранной секции
+        /// </summary>
         [AllowAnonymous]
         public ActionResult Section(string searching, int id, int page = 1)
         {
@@ -67,7 +70,10 @@ namespace BeginApplication.Controllers
             }
             return View(model);
         }
-        
+              
+        /// <summary>
+        /// Получить сообщения выбранной темы
+        /// </summary>
         [AllowAnonymous]
         public ActionResult Theme(int id, int page = 1)
         {
@@ -102,6 +108,11 @@ namespace BeginApplication.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Получить рейтинг и дополнительную информацию о сообщении
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public PartialViewResult _GetCommentData(CommentInfo model)
         {
@@ -235,7 +246,7 @@ namespace BeginApplication.Controllers
                 else
                 {
                     repository.AddComment(ToAdd); 
-                    TempData["success"] = "Сообщение добавлено, но другие пользователи смогут его увидеть только после проверки модератором.";
+                    TempData["success"] = "Сообщение добавлено, но другие пользователи увидят его только после проверки.";
                 }               
             }
             else
@@ -266,11 +277,7 @@ namespace BeginApplication.Controllers
 
         #endregion
 
-        public ActionResult UserInfo(int id)
-        {
-            var model = repository.GetUserSummary(id);
-            return View(model);
-        }
+        #region Допуск комментария
 
         [Authorize(Roles = "admin,moder")]
         public ActionResult AdmittComment(int id, int theme, string path)
@@ -285,6 +292,17 @@ namespace BeginApplication.Controllers
                 return Redirect(path);
             else
                 return RedirectToAction("Theme", "Forum", new { id = theme, page = Math.Ceiling((double)repository.Comments.Where(t => t.ThemeId == theme).Count() / 10) });
+        }
+
+        #endregion
+        
+        /// <summary>
+        /// Получить информацию о конкретном пользователе
+        /// </summary>
+        public ActionResult UserInfo(int id)
+        {
+            var model = repository.GetUserSummary(id);
+            return View(model);
         }
     }
 }

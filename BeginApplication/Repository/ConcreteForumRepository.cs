@@ -15,7 +15,7 @@ namespace BeginApplication.Repository
     {
         private SimpleMembershipContext context = new SimpleMembershipContext();
 
-        #region Таблицы        
+        #region Таблицы    
 
         public IQueryable<UserProfile> UserProfiles
         {
@@ -141,6 +141,13 @@ namespace BeginApplication.Repository
                     }).OrderByDescending(ti => ti.CreationDate).ToList();
         }
 
+        /// <summary>
+        /// Получить все комментарии конкретной темы
+        /// </summary>
+        /// <param name="id">id темы</param>
+        /// <param name="showAll">есть ли права на просмотр всех сообщений</param>
+        /// <param name="userId">id юзера, производящего выборку</param>
+        /// <returns></returns>
         public List<CommentInfo> GetCommentsByTheme(int id, bool showAll, int? userId)
         {
             var query = new List<Comment>();
@@ -170,6 +177,10 @@ namespace BeginApplication.Repository
                         }).OrderBy(c => c.CreationDate).ToList();
         }
 
+        /// <summary>
+        /// Получить все сообщения, еще не прошедшие модерацию
+        /// </summary>
+        /// <returns></returns>
         public List<CommentAdmittedInfo> GetNotAdmittedComments()
         {
             return context.Comments.Where(c => !c.IsAdmitted).Select(c => new CommentAdmittedInfo
@@ -419,6 +430,11 @@ namespace BeginApplication.Repository
 
         #endregion
 
+        /// <summary>
+        /// Получить информацию о юзере
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public UserSummaryModel GetUserSummary(int id)
         {
             var result = context.UserProfiles.Where(u=>u.UserId == id).Select(x => new UserSummaryModel
@@ -433,6 +449,9 @@ namespace BeginApplication.Repository
             return result;
         }
 
+        /// <summary>
+        /// Допустить комментарий
+        /// </summary>
         public bool AdmittComment(int id)
         {
             try

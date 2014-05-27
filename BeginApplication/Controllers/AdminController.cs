@@ -62,22 +62,22 @@ namespace BeginApplication.Controllers
             
             switch (sortOrder)
             {
-                case "EmailAsc":
+                case "EmailDesc":
                     users = users.OrderBy(u => u.Email);
                     break;
-                case "EmailDesc":
+                case "EmailAsc":
                     users = users.OrderByDescending(u => u.Email);
                     break;
-                case "UserNameAsc":
+                case "UserNameDesc":
                     users = users.OrderBy(u => u.UserName);
                     break;
-                case "UserNameDesc":
+                case "UserNameAsc":
                     users = users.OrderByDescending(u => u.UserName);
                     break;
-                case "RegistrationAsc":
+                case "RegistrationDesc":
                     users = users.OrderBy(u => u.RegistrationDate);
                     break;
-                case "RegistrationDesc":
+                case "RegistrationAsc":
                     users = users.OrderByDescending(u => u.RegistrationDate);
                     break;
                 default:
@@ -117,9 +117,7 @@ namespace BeginApplication.Controllers
         public ActionResult GetSections()
         {
             return View(repository.Sections.Select(x => new ChangeSectionModel { SectionId = x.SectionId, SectionTitle = x.SectionTitle }).ToList());
-        }
-
-        #region Модерация сообщений
+        }        
 
         [Authorize(Roles = "admin,moder")]
         public ActionResult GetNotAdmittedComments(int page = 1)
@@ -136,6 +134,10 @@ namespace BeginApplication.Controllers
             
             return View(model);
         }
+
+        #endregion
+
+        #region Модерация сообщений
 
         [Authorize(Roles = "admin,moder")]
         public ActionResult RemoveComment(int id, string path)
@@ -166,8 +168,6 @@ namespace BeginApplication.Controllers
             else
                 return RedirectToAction("GetNotAdmittedComments", "Admin", new { page = Math.Ceiling((double)repository.Comments.Where(c => !c.IsAdmitted).Count() / 10) });
         }
-
-        #endregion
 
         #endregion
 
@@ -253,6 +253,9 @@ namespace BeginApplication.Controllers
 
         #endregion
 
+        /// <summary>
+        /// Удаление юзера
+        /// </summary>
         [Authorize(Roles = "admin")]
         public ActionResult RemoveUser(UserModel user)
         {
@@ -276,6 +279,9 @@ namespace BeginApplication.Controllers
             return PartialView("_User", user);
         }
 
+        /// <summary>
+        /// Удаление раздела
+        /// </summary>
         [Authorize(Roles = "admin")]
         public ActionResult RemoveSection(ChangeSectionModel section)
         {
@@ -299,6 +305,9 @@ namespace BeginApplication.Controllers
             return PartialView("_Section", section);
         }
 
+        /// <summary>
+        /// Создание нового раздела
+        /// </summary>
         [Authorize(Roles = "admin")]
         public ActionResult CreateSection(ChangeSectionModel model)
         {

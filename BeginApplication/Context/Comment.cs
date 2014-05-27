@@ -21,7 +21,7 @@ namespace BeginApplication.Context
         public int ThemeId { get; set; }
         public int UserId { get; set; }
         public string CommentText { get; set; }
-        public System.DateTime CreationDate { get; set; }
+        public DateTime CreationDate { get; set; }
         public bool IsAdmitted { get; set; }
 
         [ForeignKey("ThemeId")]

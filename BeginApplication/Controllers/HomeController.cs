@@ -29,7 +29,7 @@ namespace BeginApplication.Controllers
         {
             int? curUserId = null;
             if (Request.IsAuthenticated && WebSecurity.UserExists(WebSecurity.CurrentUserName)) curUserId = WebSecurity.CurrentUserId;
-
+            
             return View(new ThemesModel { Themes = repository.GetRecentThemes(5, curUserId) });    
         }
 

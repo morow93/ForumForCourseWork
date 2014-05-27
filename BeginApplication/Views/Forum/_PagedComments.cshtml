@@ -36,7 +36,7 @@
                                     @using (Ajax.BeginForm("_GetCommentData", "Forum", new BeginApplication.Models.CommentInfo(c), new AjaxOptions { UpdateTargetId = target, InsertionMode = InsertionMode.Replace }, null))
                                     {
                                         <input class="btn btn-xs btn-default" type="submit" value="Проголосовать" />
-                                        <div style="display: -webkit-inline-box;" id="@target">Голосов: @Html.Partial("_GetCommentData", c) </div>                                        
+                                        <div style="display: -webkit-inline-box;" id="@target">@Html.Partial("_GetCommentData", c) </div>                                        
                                     }
                                 </div>
                             }
