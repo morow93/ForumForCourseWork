@@ -11,16 +11,11 @@
     <div class="first-column">
         Аватар
         <div id="avatar-target">
-            @if (Model.Image == null)
+            @Html.Partial("_Avatar", new BeginApplication.Models.AvatarModel
             {
-                <img src="avatar.jpg" width="100" height="100" />
-            }
-            else
-            {
-                <div id="ava-target">
-                    @Html.Partial("_Avatar", WebSecurity.CurrentUserId)
-                </div>
-            }           
+                isAvatarExists = Model.isAvatarExist,
+                UserId = WebSecurity.CurrentUserId
+            })       
         </div>
     </div>
     <div class="second-column">

@@ -17,6 +17,7 @@ namespace BeginApplication.Models
         public string SectionTitle { get; set; }
         public int? ThemeCount { get; set; }
         public int? CommentCount { get; set; }
+        public int? CountUncheckedComments { get; set; }
     }
 
     public class ChangeSectionModel

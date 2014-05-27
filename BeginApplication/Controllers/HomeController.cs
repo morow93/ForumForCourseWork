@@ -9,6 +9,7 @@ using PagedList.Mvc;
 using BeginApplication.Context;
 using BeginApplication.Repository;
 using BeginApplication.Filters;
+using WebMatrix.WebData;
 
 namespace BeginApplication.Controllers
 {
@@ -26,7 +27,10 @@ namespace BeginApplication.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            return View(new ThemesModel { Themes = repository.GetRecentThemes(5) });    
+            int? curUserId = null;
+            if (Request.IsAuthenticated && WebSecurity.UserExists(WebSecurity.CurrentUserName)) curUserId = WebSecurity.CurrentUserId;
+
+            return View(new ThemesModel { Themes = repository.GetRecentThemes(5, curUserId) });    
         }
 
         [AllowAnonymous]

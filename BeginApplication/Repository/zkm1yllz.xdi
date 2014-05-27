@@ -13,9 +13,9 @@ namespace BeginApplication.Repository
 {
     public class ConcreteForumRepository: IForumRepository
     {
-        private SimpleMembershipContext context = new SimpleMembershipContext();
+        #region Таблицы
 
-        #region Таблицы        
+        private SimpleMembershipContext context = new SimpleMembershipContext();
 
         public IQueryable<UserProfile> UserProfiles
         {
@@ -51,9 +51,6 @@ namespace BeginApplication.Repository
 
         #region Выборка для форума
 
-        /// <summary>
-        /// Получить все темы конкретного юзера
-        /// </summary>
         public List<ShortThemeInfo> GetThemesByUser(int id)
         {
             return context.Themes.Where(t => t.UserId == id).OrderByDescending(t => t.CreationDate).Select(t => new ShortThemeInfo {
@@ -63,9 +60,6 @@ namespace BeginApplication.Repository
             }).ToList();
         }
 
-        /// <summary>
-        /// Получить последние добавленные темы
-        /// </summary>
         public List<ThemeInfo> GetRecentThemes(int count, int? userId)
         {
             return (from themes in context.Themes
@@ -85,14 +79,12 @@ namespace BeginApplication.Repository
                         ThemeId = groupResult.Key.ThemeId,
                         ThemeTitle = groupResult.Key.ThemeTitle,
                         CreationDate = groupResult.Key.CreationDate,
-                        CountComments = groupResult.Where(x => x.comments.IsAdmitted).Select(c => c.comments.CommentId).Count(x => x != null), 
-                        CountUncheckedComments = groupResult.Where(x => !x.comments.IsAdmitted).Select(c => c.comments.CommentId).Count(x => x != null)
+                        CountComments = userId == null ? 
+                        groupResult.Where(x => x.comments.IsAdmitted).Select(c => c.comments.CommentId).Count(x => x != null) : 
+                        groupResult.Where(x => x.comments.UserId == userId || x.comments.IsAdmitted).Select(c => c.comments.CommentId).Count(x => x != null)
                     }).OrderByDescending(ti => ti.CreationDate).Take(count).ToList();
         }
 
-        /// <summary>
-        /// Получить все разделы форума
-        /// </summary>
         public List<SectionInfo> GetForumSections(int? userId)
         {
             var query = (from sections in context.Sections
@@ -107,16 +99,13 @@ namespace BeginApplication.Repository
                              SectionId = groupResult.Key.SectionId,
                              SectionTitle = groupResult.Key.SectionTitle,
                              ThemeCount = groupResult.Select(s => s.themes.ThemeId).Distinct().Count(x => x != null),
-                             CommentCount = groupResult.Where(x => x.comments.IsAdmitted).Select(c => c.comments.CommentId).Count(x => x != null),
-                             CountUncheckedComments = groupResult.Where(x => !x.comments.IsAdmitted).Select(c => c.comments.CommentId).Count(x => x != null)
-                         }).OrderBy(x => x.SectionId).ToList();
+                             CommentCount = userId == null ? 
+                        groupResult.Where(x => x.comments.IsAdmitted).Select(c => c.comments.CommentId).Count(x => x != null) : 
+                        groupResult.Where(x => x.comments.UserId == userId || x.comments.IsAdmitted).Select(c => c.comments.CommentId).Count(x => x != null)
             return query;
         }
 
-        /// <summary>
-        /// Получить все темы конкретного раздела
-        /// </summary>
-        public List<ThemeInfo> GetThemesBySection(int id, int? userId)
+        public List<ThemeInfo> GetThemesBySection(int id)
         {
             return (from themes in context.Themes
                     join users in context.UserProfiles on themes.UserId equals users.UserId
@@ -136,26 +125,18 @@ namespace BeginApplication.Repository
                         ThemeId = groupResult.Key.ThemeId,
                         ThemeTitle = groupResult.Key.ThemeTitle,
                         CreationDate = groupResult.Key.CreationDate,
-                        CountComments = groupResult.Where(x => x.comments.IsAdmitted).Select(c => c.comments.CommentId).Count(x => x != null),
-                        CountUncheckedComments = groupResult.Where(x => !x.comments.IsAdmitted).Select(c => c.comments.CommentId).Count(x => x != null)
+                        CountComments = groupResult.Where(x => x.comments.IsAdmitted).Select(c => c.comments.CommentId).Count(x => x != null)                             
                     }).OrderByDescending(ti => ti.CreationDate).ToList();
         }
 
-        public List<CommentInfo> GetCommentsByTheme(int id, bool showAll, int? userId)
+        public List<CommentInfo> GetCommentsByTheme(int id, bool isModer, int? userId)
         {
             var query = new List<Comment>();
 
-            if (showAll)
-            {
-                query = context.Comments.Where(c => c.ThemeId == id).ToList();
-            }
-            else
-            {
-                if (userId == null)
-                    query = context.Comments.Where(c => c.ThemeId == id && c.IsAdmitted).ToList();
-                else
-                    query = context.Comments.Where(c => c.ThemeId == id && (c.UserId == userId || c.IsAdmitted)).ToList();
-            }
+            if (userId == null)            
+                query = context.Comments.Where(c => c.ThemeId == id && c.IsAdmitted).ToList();            
+            else            
+                query = context.Comments.Where(c => c.ThemeId == id && (c.UserId == userId || c.IsAdmitted)).ToList();            
 
             return query.Select(x => new CommentInfo
                         {
@@ -165,8 +146,7 @@ namespace BeginApplication.Repository
                             UserName = x.User.UserName ?? "Удаленный пользователь",
                             UserId = x.User.UserId,
                             CommentVote = x.Like.Where(y => y.CommentId == x.CommentId).Sum(z => z.Vote),
-                            isAvatarExists = x.User.ImageData == null ? false : true,
-                            isAdmitted = x.IsAdmitted
+                            isAvatarExists = x.User.ImageData == null ? false : true
                         }).OrderBy(c => c.CreationDate).ToList();
         }
 

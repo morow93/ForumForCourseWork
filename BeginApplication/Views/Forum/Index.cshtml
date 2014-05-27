@@ -17,11 +17,18 @@
                     <p>Тем: @forumSection.ThemeCount</p>
                 </small>
             </div>
-            <div class="col-md-2 last">
+            <div class="col-md-2">
                 <small>
                     <p>Постов: @forumSection.CommentCount</p>
+                    @if (User.IsInRole("admin") || User.IsInRole("moder"))
+                    {
+                        if (forumSection.CountUncheckedComments != 0)
+                        {
+                            <p>Непроверенных постов: @forumSection.CountUncheckedComments</p>
+                        }
+                    }
                 </small>
-            </div>
+            </div>           
         </div>
     }
 </div>

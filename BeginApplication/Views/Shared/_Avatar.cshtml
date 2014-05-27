@@ -1,4 +1,11 @@
-﻿@model int
+﻿@model BeginApplication.Models.AvatarModel
 
-<img src="@Url.Action("GetImage", "Account", new { userId = Model })"
-     width="100" height="100" />
+@if (Model.isAvatarExists)
+{
+    <img src="@Url.Action("GetImage", "Account", new { userId = Model.UserId })"
+         width="100" height="100" />
+}
+else
+{
+    <img src="~/Content/Images/avatar.jpg" width="100" height="100" />
+}

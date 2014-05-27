@@ -24,5 +24,6 @@ namespace BeginApplication.Models
         public String ThemeTitle { get; set; }
         public int ThemeId { get; set; }
         public int CountComments { get; set; }
+        public int CountUncheckedComments { get; set; }
     }
 }

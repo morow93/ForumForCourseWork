@@ -8,8 +8,7 @@ namespace BeginApplication.Models
     public class PrivateCabinetModel
     {
         public int UserRating { get; set; }
-        public byte[] Image { get; set; }
-        public string Mime { get; set; }
+        public bool isAvatarExist { get; set; }
         public DateTime RegistrationDate { get; set; }
     }
 }

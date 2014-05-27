@@ -247,6 +247,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Add\AddCommentModel.cs" />
     <Compile Include="Models\Add\AddThemeModel.cs" />
+    <Compile Include="Models\AvatarModel.cs" />
     <Compile Include="Models\Paged\CommentAdmittedModel.cs" />
     <Compile Include="Models\Paged\CommentsWithThemeModel.cs" />
     <Compile Include="Models\Cabinet\PrivateCabinetModel.cs" />

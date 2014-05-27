@@ -12,6 +12,7 @@ namespace BeginApplication.Models
         public int? Rating { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
+        public bool isAvatarExists { get; set; }
     }
 
     public class ShortUserSummary

@@ -17,11 +17,11 @@ namespace BeginApplication.Repository
         IQueryable<Comment> Comments { get; }
         IQueryable<Like> Likes { get; }
         
-        List<SectionInfo> GetForumSections();
-        List<ThemeInfo> GetRecentThemes(int count);        
-        List<ThemeInfo> GetThemesBySection(int id);
+        List<SectionInfo> GetForumSections(int? userId);
+        List<ThemeInfo> GetRecentThemes(int count, int? userId);
+        List<ThemeInfo> GetThemesBySection(int id, int? userId);
         List<ShortThemeInfo> GetThemesByUser(int id);
-        List<CommentInfo> GetCommentsByTheme(int id, bool isModer);
+        List<CommentInfo> GetCommentsByTheme(int id, bool showAll, int? userId);
         List<CommentAdmittedInfo> GetNotAdmittedComments();
 
         void AddTheme(Theme theme);

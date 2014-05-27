@@ -273,7 +273,7 @@ namespace BeginApplication.Controllers
         }
 
         [Authorize(Roles = "admin,moder")]
-        public ActionResult AdmittComment(int id, int theme, string path)
+        public ActionResult AdmittComment(int id, string path)
         {
             var result = repository.AdmittComment(id);
             if (result)
@@ -284,7 +284,7 @@ namespace BeginApplication.Controllers
             if (path.RemoteFileExists())
                 return Redirect(path);
             else
-                return RedirectToAction("Theme", "Forum", new { id = theme, page = Math.Ceiling((double)repository.Comments.Where(t => t.ThemeId == theme).Count() / 10) });
+                return RedirectToAction("GetNotAdmittedComments", "Admin", new { page = Math.Ceiling((double)repository.Comments.Where(c => !c.IsAdmitted).Count() / 10) });
         }
     }
 }

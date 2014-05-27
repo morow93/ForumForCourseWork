@@ -21,7 +21,11 @@
 <div class="container container-xs-height">
     <div class="row row-sm-height post-content">
         <div class="col-xs-2 col-xs-height">
-            @Html.Partial("_Avatar", Model.Theme.UserId)
+            @Html.Partial("_Avatar", new BeginApplication.Models.AvatarModel
+            {
+                isAvatarExists = Model.Theme.isAvatarExists,
+                UserId = Model.Theme.UserId
+            })
         </div>
         <div class="col-xs-6 col-xs-height">
             @Model.Theme.ThemeText

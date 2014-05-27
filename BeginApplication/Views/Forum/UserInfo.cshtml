@@ -4,6 +4,12 @@
     ViewBag.Title = "UserInfo";
 }
 
+@Html.Partial("_Avatar", new BeginApplication.Models.AvatarModel
+{
+    isAvatarExists = Model.isAvatarExists,
+    UserId = Model.UserId
+})
+ 
 @if (Roles.IsUserInRole(Model.UserName, "moder"))
 {
     <h2>@Model.UserName, Модератор</h2>

@@ -16,7 +16,11 @@
                              })
                             @if (Roles.IsUserInRole("moder") || Roles.IsUserInRole("admin"))
                             {
-                                @Html.ActionLink("Удалить комментарий", "RemoveComment", "Forum", new { id = c.CommentId, theme = Model.Theme.ThemeId, path = Request.Url.AbsoluteUri }, new { @class = "del-comment-ref" })
+                                @Html.ActionLink("Удалить комментарий", "RemoveComment", "Forum", new { id = c.CommentId, theme = Model.Theme.ThemeId, path = Request.Url.AbsoluteUri }, new { @class = "del-comment-ref" }) 
+                                if (!c.isAdmitted)
+                                {
+                                    @Html.ActionLink(" Допустить", "AdmittComment", "Forum", new { id = c.CommentId, theme = Model.Theme.ThemeId, path = Request.Url.AbsoluteUri }, new { @class = "admit-comment-ref" })
+                                }
                             }
                         </div>
                         <div class="col-sm-2 col-xs-height">
@@ -24,15 +28,15 @@
                         </div>
                         <div style="text-align: right;" class="col-sm-2 col-xs-height last">
 
-                            @if (Request.IsAuthenticated)
+                            @if (Request.IsAuthenticated && c.UserId != WebSecurity.CurrentUserId && c.isAdmitted)
                             {
                                 var target = "id" + c.CommentId.ToString();
 
                                 <div>
                                     @using (Ajax.BeginForm("_GetCommentData", "Forum", new BeginApplication.Models.CommentInfo(c), new AjaxOptions { UpdateTargetId = target, InsertionMode = InsertionMode.Replace }, null))
                                     {
-                                        <div style="display: -webkit-inline-box;" id="@target">  @Html.Partial("_GetCommentData", c) </div>
                                         <input class="btn btn-xs btn-default" type="submit" value="Проголосовать" />
+                                        <div style="display: -webkit-inline-box;" id="@target">Голосов: @Html.Partial("_GetCommentData", c) </div>                                        
                                     }
                                 </div>
                             }
@@ -46,10 +50,18 @@
                 <div class="container container-xs-height">
                     <div class="row row-sm-height post-content">
                         <div class="col-xs-2 col-xs-height">
-                            @Html.Partial("_Avatar", c.UserId)
+                            @Html.Partial("_Avatar", new BeginApplication.Models.AvatarModel 
+                            { 
+                                isAvatarExists = c.isAvatarExists,
+                                UserId = c.UserId
+                            })
                         </div>
                         <div class="col-xs-6 col-xs-height">
-                            @c.CommentText
+                            @if (!c.isAdmitted)
+                            {
+                                <small>Данный комментарий пока не прошел проверки</small>
+                            }
+                            @c.CommentText                            
                         </div>
                     </div>
                 </div>

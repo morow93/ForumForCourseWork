@@ -21,6 +21,8 @@ namespace BeginApplication.Models
         public int CommentId { get; set; }
         public String CommentText { get; set; }
         public int? CommentVote { get; set; }
+        public bool isAvatarExists { get; set; }
+        public bool isAdmitted { get; set; }
 
         public CommentInfo(CommentInfo model)
         {
@@ -30,6 +32,7 @@ namespace BeginApplication.Models
             this.CommentId = model.CommentId;
             this.CommentText = model.CommentText;
             this.CommentVote = model.CommentVote;
+            this.isAvatarExists = model.isAvatarExists;
         }
         public CommentInfo() { }
     }
@@ -42,5 +45,6 @@ namespace BeginApplication.Models
         public String ThemeTitle { get; set; }
         public String ThemeText { get; set; }
         public Int32 ThemeId { get; set; }
+        public Boolean isAvatarExists { get; set; }
     }
 }

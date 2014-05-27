@@ -1,13 +1,24 @@
 ﻿@model BeginApplication.Models.ThemeInfo
 
 <div class="row topic-link-line">
-    <div class="col-md-8">
+    <div class="col-md-5">
         <p>@Html.ActionLink(Model.ThemeTitle, "Theme", "Forum", new { id = Model.ThemeId }, null)</p>
         <small>@Model.CreationDate.ToShortTimeString() , @Model.CreationDate.ToShortDateString()</small>
     </div>
     <div class="col-md-3">
         <small>
             <p>Постов: @Model.CountComments</p>
+            @if (User.IsInRole("admin") || User.IsInRole("moder"))
+            {
+                if (Model.CountUncheckedComments != 0)
+                { 
+                    <p>Непроверенных постов: @Model.CountUncheckedComments</p>
+                }
+            }
+        </small>
+    </div>
+    <div class="col-md-3">
+        <small>
             Автор: @Html.Partial("_UserAct", new BeginApplication.Models.ShortUserSummary
               {
                   UserId = Model.UserId,

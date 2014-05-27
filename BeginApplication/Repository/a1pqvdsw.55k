@@ -13,9 +13,9 @@ namespace BeginApplication.Repository
 {
     public class ConcreteForumRepository: IForumRepository
     {
-        private SimpleMembershipContext context = new SimpleMembershipContext();
+        #region Таблицы
 
-        #region Таблицы        
+        private SimpleMembershipContext context = new SimpleMembershipContext();
 
         public IQueryable<UserProfile> UserProfiles
         {
@@ -141,21 +141,14 @@ namespace BeginApplication.Repository
                     }).OrderByDescending(ti => ti.CreationDate).ToList();
         }
 
-        public List<CommentInfo> GetCommentsByTheme(int id, bool showAll, int? userId)
+        public List<CommentInfo> GetCommentsByTheme(int id, bool isModer, int? userId)
         {
             var query = new List<Comment>();
 
-            if (showAll)
-            {
-                query = context.Comments.Where(c => c.ThemeId == id).ToList();
-            }
-            else
-            {
-                if (userId == null)
-                    query = context.Comments.Where(c => c.ThemeId == id && c.IsAdmitted).ToList();
-                else
-                    query = context.Comments.Where(c => c.ThemeId == id && (c.UserId == userId || c.IsAdmitted)).ToList();
-            }
+            if (userId == null)            
+                query = context.Comments.Where(c => c.ThemeId == id && c.IsAdmitted).ToList();            
+            else            
+                query = context.Comments.Where(c => c.ThemeId == id && (c.UserId == userId || c.IsAdmitted)).ToList();            
 
             return query.Select(x => new CommentInfo
                         {
