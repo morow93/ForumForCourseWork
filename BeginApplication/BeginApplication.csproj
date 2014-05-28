@@ -243,6 +243,10 @@
     <Compile Include="Migrations\201405241642477_isAdmited.Designer.cs">
       <DependentUpon>201405241642477_isAdmited.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201405280751463_DropSomeClumns.cs" />
+    <Compile Include="Migrations\201405280751463_DropSomeClumns.Designer.cs">
+      <DependentUpon>201405280751463_DropSomeClumns.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Add\AddCommentModel.cs" />
@@ -425,6 +429,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201405241642477_isAdmited.resx">
       <DependentUpon>201405241642477_isAdmited.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405280751463_DropSomeClumns.resx">
+      <DependentUpon>201405280751463_DropSomeClumns.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

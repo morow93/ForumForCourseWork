@@ -9,8 +9,8 @@
                 @Html.Partial("_Theme", theme)
                 <div class="theme-sub-part">
                     @if (Roles.IsUserInRole("moder") || Roles.IsUserInRole("admin"))
-                    {
-                        @Html.ActionLink("Удалить тему", "RemoveTheme", "Forum", new { id = theme.ThemeId, section = Model.Section.SectionId, path = Request.Url.AbsoluteUri }, new { @class = "del-theme-ref" })
+                    {                        
+                        <input class="del-theme-ref" type="button" value="Удалить тему" onclick="location.href='@Url.Action("RemoveTheme", "Forum", new { id = theme.ThemeId, section = Model.Section.SectionId, path = Request.Url.AbsoluteUri })'" />
                     }
                 </div>           
             </div>

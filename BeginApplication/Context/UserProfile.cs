@@ -29,7 +29,6 @@ namespace BeginApplication.Context
         public string ImageMimeType { get; set; } 
 
         public DateTime RegistrationDate { get; set; }
-        public bool IsDeleted { get; set; }
 
         public virtual ICollection<Like> Like { get; set; }
         public virtual ICollection<Theme> Theme { get; set; }

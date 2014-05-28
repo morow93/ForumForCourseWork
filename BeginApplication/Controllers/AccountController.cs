@@ -68,7 +68,7 @@ namespace BeginApplication.Controllers
                 user = context.UserProfiles.FirstOrDefault(u => u.UserName == model.UserName || u.Email == model.UserName);
             }
 
-            if (user != null && !user.IsDeleted && ModelState.IsValid)
+            if (user != null && ModelState.IsValid)
             {
                 if (WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
                 {

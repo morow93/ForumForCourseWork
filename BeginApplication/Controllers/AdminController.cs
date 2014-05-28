@@ -49,7 +49,7 @@ namespace BeginApplication.Controllers
             ViewBag.CurrentFilter = searchString;
 
             var admins = Roles.GetUsersInRole("admin");
-            var users = repository.UserProfiles.Where(u => !u.IsDeleted && !admins.Contains(u.UserName));
+            var users = repository.UserProfiles.Where(u => !admins.Contains(u.UserName));
    
             if (!String.IsNullOrEmpty(searchString))
             {

@@ -6,10 +6,15 @@
     
     <tr>
         <td>
-            @Html.DisplayFor(m => m.UserName)
+            @Html.Partial("_UserAct", new BeginApplication.Models.ShortUserSummary
+              {
+                  UserId = Model.UserId,
+                  UserName = Model.UserName
+              })
         </td>
         <td>
-            @Html.DisplayFor(m => m.Email)
+            @{ var email = "mailto" + ":" + Model.Email; }
+            <span><a href="@email">@Model.Email</a></span>
         </td>
         <td>
             @Html.DisplayFor(m => m.RegistrationDate)
