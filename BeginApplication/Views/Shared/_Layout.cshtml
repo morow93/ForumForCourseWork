@@ -53,8 +53,8 @@
     </div>
     <div class="container main">
         @TempData["Message"]
-        <span class="success">@TempData["success"]</span>
-        <span class="failure">@TempData["failure"]</span>
+        <div class="alert alert-success">@TempData["success"]</div>
+        <div class="alert alert-dange">@TempData["failure"]</div>
 
         @RenderBody()
     </div>

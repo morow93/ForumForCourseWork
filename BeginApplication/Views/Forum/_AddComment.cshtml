@@ -7,15 +7,10 @@
 
         <fieldset>
             <legend>Форма отправки комментария</legend>
-
-            <div class="editor-label">
-                @Html.LabelFor(m => m.CommentText)
+            <div style="width: 400px">
+                @Html.TextAreaFor(m => m.CommentText, new { @class = "form-control", placeholder = "Содержание" })
+                <button type="submit" class="btn btn-primary">Отправить комментарий</button>
             </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.CommentText)
-            </div>
-
-            <input type="submit" value="Отправить комментарий" class="toAnchorButton" />
         </fieldset>
     }
 </div>

@@ -72,7 +72,7 @@ html {
 	margin-bottom: 2px;
 }
 
-.topic-link-line > .col-md-8 {
+.topic-link-line > .col-md-5 {
 	border-top-left-radius: 5px;
 	border-bottom-left-radius: 5px;
 	border-left: 1px solid #ddd;
@@ -84,14 +84,17 @@ html {
 }
 
 .topic-link-line > .col-md-3 {
-	border-top-right-radius: 5px;
-	border-bottom-right-radius: 5px;
-	border-right: 1px solid #ddd;
-	border-right: 1px solid rgba(86,61,124,.2);
 	border-top: 1px solid #ddd;
 	border-top: 1px solid rgba(86,61,124,.2);
 	border-bottom: 1px solid #ddd;
 	border-bottom: 1px solid rgba(86,61,124,.2);
+}
+
+.topic-link-line > .right {
+	border-right: 1px solid #ddd;
+	border-right: 1px solid rgba(86,61,124,.2);
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
 }
 
 .topic-link {
