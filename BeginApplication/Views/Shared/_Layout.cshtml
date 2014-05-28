@@ -52,9 +52,15 @@
         </div>
     </div>
     <div class="container main">
-        @TempData["Message"]
-        <div class="alert alert-success">@TempData["success"]</div>
-        <div class="alert alert-dange">@TempData["failure"]</div>
+        @if(@TempData["Message"]!=null) {
+            <div class="alert alert-info">@TempData["Message"]</div>
+        }
+        @if(@TempData["success"]!=null) {
+            <div class="alert alert-success">@TempData["success"]</div>
+        }
+        @if(@TempData["failure"]!=null) {
+            <div class="alert alert-dange">@TempData["failure"]</div>
+        }
 
         @RenderBody()
     </div>

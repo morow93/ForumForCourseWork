@@ -61,6 +61,10 @@ html {
 	margin-top: 100px;
 }
 
+.topic-link-line {
+	vertical-align: middle;
+}
+
 .topic-link-line  > div{
 	min-height: 50px;
 	line-height: 50%;
@@ -70,6 +74,8 @@ html {
 	background-color: rgba(0, 0, 175, 0.15);
 	vertical-align: middle;
 	margin-bottom: 2px;
+	height:60px;
+	vertical-align: middle;
 }
 
 .topic-link-line > .col-md-5 {
@@ -269,4 +275,9 @@ h4 {
 
 .password-change-block {
 	width: 550px;
+}
+
+.not-admitted-comment {
+	border-radius: 7px;
+	background-color: #eeeef5;
 }
