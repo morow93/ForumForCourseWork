@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    $(".section-form-to-hide").hide();
+
     $(".buttonShow").on('click', function () {
         $("#add-comment-form").show("slow");
         window.location.hash = "#add-comment-form";
@@ -12,14 +12,14 @@
         else {
             $(".changeAvatar").hide("slow");
         }
-    });
- 
-    $("#show-form-create-section").on('click', function () {
-        if ($(".section-form-to-hide").css('display') == 'none') {
-            $(".section-form-to-hide").show("slow");
+    }); 
+    
+    $(".show-hide-form-create-section").on('click', function () {
+        if ($(".form-create-section").css('display') == 'none') {
+            $(".form-create-section").show("slow");
         }
         else {
-            $(".section-form-to-hide").hide("slow");
+            $(".form-create-section").hide("slow");
         }
     });
 
@@ -44,9 +44,9 @@
     });
 
     $(".del-user-ref").click(function () {
-        var answer = confirm('Вы действительно хотите удалить пользователя?');
+        var answer = confirm('Вы действительно хотите заблокировать пользователя?');
         return answer;
-    }); 
+    });
     
     $(".rec-user-ref").click(function () {
         var answer = confirm('Вы действительно хотите восстановить пользователя?');
@@ -55,10 +55,14 @@
 });
 
 function OnSuccessCreateSection(data) {
-    alert("Раздел был добавлен.");
+    setTimeout(function () {
+        alert("Раздел был добавлен.");
+    }, 500);    
 }
 function OnFailureCreateSection(request) {
-    alert("Раздел не был добавлен.");
+    setTimeout(function () {
+        alert("Раздел не был добавлен.");
+    }, 500);
 }
 function OnFailureRenameSection(request) {
     alert("Раздел не был переименован.");
