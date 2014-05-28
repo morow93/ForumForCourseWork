@@ -10,7 +10,7 @@
                 <div class="theme-sub-part">
                     @if (Roles.IsUserInRole("moder") || Roles.IsUserInRole("admin"))
                     {
-                        @Html.ActionLink("Удалить тему", "RemoveTheme", "Forum", new { id = theme.ThemeId, section = Model.Section.SectionId, path = Request.Url.AbsoluteUri }, new { @class = "del-theme-ref" })
+                        <button style="margin-bottom: 9px;" class="btn btn-danger btn-xs" type="button" onclick="location.href='@Url.Action("RemoveTheme", "Forum", new { id = theme.ThemeId, section = Model.Section.SectionId, path = Request.Url.AbsoluteUri })'">Удалить тему</button>
                     }
                 </div>           
             </div>

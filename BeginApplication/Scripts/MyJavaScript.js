@@ -1,4 +1,6 @@
 ﻿$(document).ready(function () {
+		$('input[type=file]').bootstrapFileInput();
+		$('.file-inputs').bootstrapFileInput();
     $(".section-form-to-hide").hide();
     $(".buttonShow").on('click', function () {
         $("#add-comment-form").show("slow");

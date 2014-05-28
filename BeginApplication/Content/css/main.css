@@ -281,3 +281,14 @@ h4 {
 	border-radius: 7px;
 	background-color: #eeeef5;
 }
+
+.userinfo-table {
+	width: 400px;
+}
+
+.section-list > .right {
+	border-right: 1px solid #ddd;
+	border-right: 1px solid rgba(86,61,124,.2);
+	border-bottom-right-radius: 5px;
+	border-top-right-radius: 5px;
+}

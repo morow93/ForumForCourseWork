@@ -20,8 +20,8 @@
             <p>Содеражание сообщения : @comment.CommentText</p>
             <p>Кем отправлено : @Html.Partial("_UserAct", new BeginApplication.Models.ShortUserSummary { UserId = comment.UserId, UserName = comment.UserName })</p>
             <p>Когда отправлено : @comment.CreationDate</p>
-            <p>@Html.ActionLink("Удалить комментарий", "RemoveComment", "Admin", new { id = comment.CommentId, path = Request.Url.AbsoluteUri }, new { @class = "del-comment-ref" })</p>
-            <p>@Html.ActionLink("Допустить", "AdmittComment", "Admin", new { id = comment.CommentId, path = Request.Url.AbsoluteUri }, new { @class = "admit-comment-ref" })</p>
+            <button class="btn btn-danger btn-sm" type="button" onclick="location.href='@Url.Action("RemoveComment", "Admin", new { id = comment.CommentId, path = Request.Url.AbsoluteUri })'">Удалить комментарий</button>
+            <button class="btn btn-success btn-sm" type="button" onclick="location.href='@Url.Action("AdmittComment", "Admin", new { id = comment.CommentId, path = Request.Url.AbsoluteUri })'">Допустить</button>
         </div>
     }
 }

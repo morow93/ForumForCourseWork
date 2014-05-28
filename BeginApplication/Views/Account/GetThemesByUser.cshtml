@@ -11,8 +11,14 @@
 { 
     foreach (var theme in Model.PagedThemes)
     {
-        <p>@Html.ActionLink(theme.ThemeTitle, "Theme", "Forum", new { id = theme.ThemeId}, null)</p>
-        <p>@theme.CreationDate.ToShortDateString(), @theme.CreationDate.ToShortTimeString()</p>
+        <div class="row topic-link-line section-link-line">
+	        <div class="col-md-7">
+		        @Html.ActionLink(theme.ThemeTitle, "Theme", "Forum", new { id = theme.ThemeId }, null)
+	        </div>
+	        <div class="col-md-2 right">
+		        @theme.CreationDate.ToShortDateString(), @theme.CreationDate.ToShortTimeString()
+	        </div>           
+        </div>
     }
 }
 
