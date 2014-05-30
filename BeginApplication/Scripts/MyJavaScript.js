@@ -1,61 +1,4 @@
-﻿//    $(".admit-comment-ref").click(function () {
-//        var answer = confirm('Вы действительно хотите допустить сообщение?');
-//        return answer;
-//    });
-
-//    $(".del-comment-ref").click(function () {
-//        var answer = confirm('Вы действительно хотите удалить сообщение?');
-//        return answer;        
-//    });
-
-//    $(".del-theme-ref").click(function () {
-//        var answer = confirm('Вы действительно хотите удалить тему?');
-//        return answer;
-//    });
-    
-//    $(".del-section-ref").click(function () {
-//        var answer = confirm('Вы действительно хотите удалить раздел?');
-//        return answer;
-//    });
-
-//    $(".del-user-ref").click(function () {
-//        var answer = confirm('Вы действительно хотите заблокировать пользователя?');
-//        return answer;
-//    });
-    
-//    $(".rec-user-ref").click(function () {
-//        var answer = confirm('Вы действительно хотите восстановить пользователя?');
-//        return answer;
-//    });
-//});
-
-//function OnSuccessCreateSection(data) {
-//    setTimeout(function () {
-//        alert("Раздел был добавлен.");
-//    }, 500);    
-//}
-//function OnFailureCreateSection(request) {
-//    setTimeout(function () {
-//        alert("Раздел не был добавлен.");
-//    }, 500);
-//}
-//function OnFailureRenameSection(request) {
-//    alert("Раздел не был переименован.");
-//}
-//function OnFailureRemoveSection(request) {
-//    alert("Раздел не был удален.");
-//}
-//function OnFailureRemoveUser(request) {
-//    alert("Пользователь не был удален.");
-//}
-//function OnFailureRecoveryUser(request) {
-//    alert("Пользователь не был восстановлен.");
-//}
-
- 
-
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
 
     //$('input[type=file]').bootstrapFileInput();
     //$('.file-inputs').bootstrapFileInput();
@@ -86,36 +29,27 @@ $(document).ready(function () {
         else {
             $(".form-create-section").hide("slow");
         }
-        //нужно очистить поля формы
-    });
-
-    $(".admit-comment-ref").click(function () {
-        var answer = confirm('Вы действительно хотите допустить сообщение?');
-        return answer;
-    });
-
-    $(".del-comment-ref").click(function () {
-        var answer = confirm('Вы действительно хотите удалить сообщение?');
-        return answer;        
-    });
-
-    $(".del-theme-ref").click(function () {
-        var answer = confirm('Вы действительно хотите удалить тему?');
-        return answer;
-    });
-    
+        //можно попробовать здесь очистить поля формы
+    });//не менять
+   
     $(".del-section-ref").click(function () {
         var answer = confirm('Вы действительно хотите удалить раздел?');
         return answer;
-    });
+    });//не менять
 
     $(".del-user-ref").click(function () {
-        var answer = confirm('Вы действительно хотите удалить пользователя?');
+        var answer = confirm('Вы действительно хотите заблокировать пользователя?');
         return answer;
-    });
+    });//не менять
+
+    $(".rec-user-ref").click(function () {
+        var answer = confirm('Вы действительно хотите восстановить пользователя?');
+        return answer;
+    });//не менять
     
 });
 
+//раздел
 function OnSuccessCreateSection(data) {
     alert("Раздел был добавлен.");
 }
@@ -128,6 +62,8 @@ function OnFailureRenameSection(request) {
 function OnFailureRemoveSection(request) {
     alert("Раздел не был удален.");
 }
+//раздел
+
 function OnFailureRemoveUser(request) {
     alert("Пользователь не был удален.");
 }

@@ -10,7 +10,14 @@
                 <div class="theme-sub-part">
                     @if (Roles.IsUserInRole("moder") || Roles.IsUserInRole("admin"))
                     {
-                        <button style="margin-bottom: 9px;" class="btn btn-danger btn-xs" type="button" onclick="location.href='@Url.Action("RemoveTheme", "Forum", new { id = theme.ThemeId, section = Model.Section.SectionId, path = Request.Url.AbsoluteUri })'">Удалить тему</button>
+                        using (Html.BeginForm("RemoveTheme", "Forum", new { id = theme.ThemeId, section = Model.Section.SectionId, path = Request.Url.AbsoluteUri }))
+                        {
+                            <input class="btn btn-danger btn-xs"
+                                   type="submit"
+                                   value="Удалить тему"
+                                   style="margin-bottom: 9px;"
+                                   onclick="return confirm('Вы действительно хотите удалить тему?')" />
+                        }
                     }
                 </div>
             </div>

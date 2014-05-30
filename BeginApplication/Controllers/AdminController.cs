@@ -338,12 +338,13 @@ namespace BeginApplication.Controllers
                 var result = repository.AddSection(new Section { SectionTitle = model.SectionTitle });
                 
                 if (!result)
-                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    Response.StatusCode = (int)HttpStatusCode.BadRequest;                
             }
             else
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
             }
+            ModelState.Clear();
             return PartialView("_CreateSection", null);
         }
     }

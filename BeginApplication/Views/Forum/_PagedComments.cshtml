@@ -16,10 +16,23 @@
                              })
                             @if (Roles.IsUserInRole("moder") || Roles.IsUserInRole("admin"))
                             {
-                                <button class="btn btn-danger btn-xs" type="button" onclick="location.href='@Url.Action("RemoveComment", "Forum", new { id = c.CommentId, theme = Model.Theme.ThemeId, path = Request.Url.AbsoluteUri })'">Удалить</button>
+                                using (Html.BeginForm("RemoveComment", "Forum", new { id = c.CommentId, theme = Model.Theme.ThemeId, path = Request.Url.AbsoluteUri }, FormMethod.Post, new { @class = "my-del-form" }))
+                                {
+                                    <input class="btn btn-danger btn-xs" 
+                                           type="submit" 
+                                           value="Удалить" 
+                                           onclick="return confirm('Вы действительно хотите удалить сообщение?')" />
+                                }
+                                
                                 if (!c.isAdmitted)
                                 {
-                                    <button class="btn btn-success btn-xs" type="button" onclick="location.href='@Url.Action("AdmittComment", "Forum", new { id = c.CommentId, theme = Model.Theme.ThemeId, path = Request.Url.AbsoluteUri })'">Одобрить</button>
+                                    using (Html.BeginForm("AdmittComment", "Forum", new { id = c.CommentId, theme = Model.Theme.ThemeId, path = Request.Url.AbsoluteUri }, FormMethod.Post, new { @class = "my-admit-form" }))
+                                    {
+                                        <input class="btn btn-success btn-xs"
+                                               type="submit"
+                                               value="Одобрить"
+                                               onclick="return confirm('Вы действительно хотите ободрить сообщение?')" />
+                                    }
                                 }
                             }
                         </div>
