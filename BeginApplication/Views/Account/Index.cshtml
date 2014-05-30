@@ -27,7 +27,7 @@
             </li>         
         </ul>
         <fieldset class="changeAvatar">
-            @using (Html.BeginForm("ChangeAvatar", "Account", null, FormMethod.Post, new { Model, enctype = "multipart/form-data" }))
+            @using (Html.BeginForm("ChangeAvatar", "Account", null, FormMethod.Post, new { Model, enctype = "multipart/form-data", id = "formChangeAvatar" } ))
             {
                 <input type="file" data-filename-placement="inside" name="file">
                 <button style="margin-top: 3px; margin-bottom: 8px;" type="submit" class="btn btn-success btn-sm">Обновить аватар</button>

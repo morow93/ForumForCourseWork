@@ -1,35 +1,4 @@
-﻿//$(document).ready(function () {
-//<<<<<<< HEAD
-
-//=======
-//		$('input[type=file]').bootstrapFileInput();
-//		$('.file-inputs').bootstrapFileInput();
-//    $(".section-form-to-hide").hide();
-//>>>>>>> upstream/master
-//    $(".buttonShow").on('click', function () {
-//        $("#add-comment-form").show("slow");
-//        window.location.hash = "#add-comment-form";
-//    });
-
-//    $("#changeAvatarRef").on('click', function () {   
-//        if ($(".changeAvatar").css('display') == 'none') {
-//            $(".changeAvatar").show("slow");
-//        }
-//        else {
-//            $(".changeAvatar").hide("slow");
-//        }
-//    }); 
-    
-//    $(".show-hide-form-create-section").on('click', function () {
-//        if ($(".form-create-section").css('display') == 'none') {
-//            $(".form-create-section").show("slow");
-//        }
-//        else {
-//            $(".form-create-section").hide("slow");
-//        }
-//    });
-
-//    $(".admit-comment-ref").click(function () {
+﻿//    $(".admit-comment-ref").click(function () {
 //        var answer = confirm('Вы действительно хотите допустить сообщение?');
 //        return answer;
 //    });
@@ -98,7 +67,7 @@ $(document).ready(function () {
         $('html, body').animate({
             scrollTop: $("#cur-form-add-comment").offset().top
         }, 800);
-    });
+    });//не менять
 
     $("#changeAvatarRef").on('click', function () {   
         if ($(".changeAvatar").css('display') == 'none') {
@@ -107,15 +76,17 @@ $(document).ready(function () {
         else {
             $(".changeAvatar").hide("slow");
         }
-    });
+    });//не менять
  
-    $("#show-form-create-section").on('click', function () {
-        if ($(".section-form-to-hide").css('display') == 'none') {
-            $(".section-form-to-hide").show("slow");
+    $(".show-hide-form-create-section").on('click', function () {
+        
+        if ($(".form-create-section").css('display') == 'none') {
+            $(".form-create-section").show("slow");
         }
         else {
-            $(".section-form-to-hide").hide("slow");
+            $(".form-create-section").hide("slow");
         }
+        //нужно очистить поля формы
     });
 
     $(".admit-comment-ref").click(function () {
