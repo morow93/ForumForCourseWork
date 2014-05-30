@@ -109,7 +109,7 @@ namespace BeginApplication.Repository
                              ThemeCount = groupResult.Select(s => s.themes.ThemeId).Distinct().Count(x => x != null),
                              CommentCount = groupResult.Where(x => x.comments.IsAdmitted).Select(c => c.comments.CommentId).Count(x => x != null),
                              CountUncheckedComments = groupResult.Where(x => !x.comments.IsAdmitted).Select(c => c.comments.CommentId).Count(x => x != null)
-                         }).OrderBy(x => x.SectionId).ToList();
+                         }).OrderBy(x => x.SectionTitle).ToList();
             return query;
         }
 

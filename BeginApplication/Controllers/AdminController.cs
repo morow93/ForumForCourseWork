@@ -116,7 +116,7 @@ namespace BeginApplication.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult GetSections()
         {
-            return View(repository.Sections.Select(x => new ChangeSectionModel { SectionId = x.SectionId, SectionTitle = x.SectionTitle }).ToList());
+            return View(repository.Sections.Select(x => new ChangeSectionModel { SectionId = x.SectionId, SectionTitle = x.SectionTitle }).OrderBy(s => s.SectionTitle).ToList());
         }        
 
         [Authorize(Roles = "admin,moder")]

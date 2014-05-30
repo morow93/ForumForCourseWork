@@ -1,7 +1,7 @@
 ﻿@model BeginApplication.Models.AddCommentModel
 
-<div class="add-comment" style="overflow: auto;">
-    @using (Html.BeginForm("_AddComment", "Forum", new { UserId = Model.UserId, ThemeId = Model.ThemeId }, FormMethod.Post, new { id = "add-comment-form" }))
+<div class="form-add-comment" style="overflow: auto;">
+    @using (Html.BeginForm("_AddComment", "Forum", new { UserId = Model.UserId, ThemeId = Model.ThemeId }, FormMethod.Post, new { id = "cur-form-add-comment" }))
     {
         @Html.ValidationSummary()
 

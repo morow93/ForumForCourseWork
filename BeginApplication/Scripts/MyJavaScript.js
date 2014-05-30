@@ -83,16 +83,21 @@
 //    alert("Пользователь не был восстановлен.");
 //}
 
-
+ 
 
 
 $(document).ready(function () {
-    $('input[type=file]').bootstrapFileInput();
-    $('.file-inputs').bootstrapFileInput();
-    $(".section-form-to-hide").hide();
-    $(".buttonShow").on('click', function () {
-        $("#add-comment-form").show("slow");
-        window.location.hash = "#add-comment-form";
+
+    //$('input[type=file]').bootstrapFileInput();
+    //$('.file-inputs').bootstrapFileInput();
+
+    $(".to-form-add-comment").on('click', function () {
+        if ($(".form-add-comment").css('display') == 'none') {
+            $(".form-add-comment").show();
+        }
+        $('html, body').animate({
+            scrollTop: $("#cur-form-add-comment").offset().top
+        }, 800);
     });
 
     $("#changeAvatarRef").on('click', function () {   

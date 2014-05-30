@@ -189,7 +189,7 @@ namespace BeginApplication.Controllers
 
                     if (changePasswordSucceeded)
                     {
-                        TempData["Message"] = "Пароль был успешно изменен";
+                        TempData["success"] = "Пароль был успешно изменен";
                         return RedirectToAction("Index");
                     }
                     else
@@ -223,7 +223,7 @@ namespace BeginApplication.Controllers
             var user = new SimpleMembershipContext().UserProfiles.FirstOrDefault(u => u.Email.ToLower() == Email.ToLower());
             if (user == null)
             {
-                TempData["Message"] = "Не существует пользователя с такой почтой.";
+                TempData["failure"] = "Не существует пользователя с такой почтой.";
             }
             else
             {
@@ -243,9 +243,9 @@ namespace BeginApplication.Controllers
                 }
 
                 if (flag)
-                    TempData["Message"] = "Письмо для сброса пароля было отправлено на указанную почту";
+                    TempData["success"] = "Письмо для сброса пароля было отправлено на указанную почту";
                 else
-                    TempData["Message"] = "При отправке письме для сброса пароля произошла ошибка";
+                    TempData["failure"] = "При отправке письме для сброса пароля произошла ошибка";
             }
             return View();
         }
@@ -282,15 +282,15 @@ namespace BeginApplication.Controllers
                     bool response = WebSecurity.ResetPassword(model.Token, model.NewPassword);
 
                     if (response == true)                    
-                        TempData["Message"] = "Пароль успешно изменен. Теперь можете войти.";                    
+                        TempData["success"] = "Пароль успешно изменен. Теперь можете войти.";                    
                     else
                     {
-                        TempData["Message"] = "Увы, пароль не был изменен.";
+                        TempData["failure"] = "Увы, пароль не был изменен.";
                     }
                 }
                 else
                 {
-                    TempData["Message"] = "Выявлено несоотвествие пользователя и токена сброса пароля.";
+                    TempData["failure"] = "Выявлено несоотвествие пользователя и токена сброса пароля.";
                 }
             }
             else
