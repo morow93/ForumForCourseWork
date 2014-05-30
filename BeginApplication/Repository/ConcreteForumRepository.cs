@@ -272,7 +272,6 @@ namespace BeginApplication.Repository
                     userProperty.UserId = id;
                     userProperty.ShowEmail = false;
                     userProperty.ShowMobile = false;
-
                     context.UserProperties.Add(userProperty);
                     context.SaveChanges();
                     return true;
