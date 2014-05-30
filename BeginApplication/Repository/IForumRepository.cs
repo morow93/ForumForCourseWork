@@ -30,6 +30,7 @@ namespace BeginApplication.Repository
 
         PrivatePropertiesModel GetPrivateProperties(int id);
         void SetPrivateProperties(PrivatePropertiesModel model, int id);
+        bool SetPrivateProperties(int id);
         PrivateCabinetModel GetPrivateCabinet(int userId);
 
         bool RemoveTheme(int id);

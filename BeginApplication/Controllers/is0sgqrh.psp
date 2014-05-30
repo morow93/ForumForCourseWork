@@ -137,10 +137,12 @@ namespace BeginApplication.Controllers
                             new { 
                                 Email = model.Email, 
                                 Mobile = model.Mobile, 
-                                RegistrationDate = DateTime.Now                                
+                                RegistrationDate = DateTime.Now 
                             }
                         );
-                        Roles.AddUserToRole(model.UserName, "active");                        
+                        Roles.AddUserToRole(model.UserName, "active");
+
+                        repository.SetPrivateProperties()
 
                         WebSecurity.Login(model.UserName, model.Password);
 

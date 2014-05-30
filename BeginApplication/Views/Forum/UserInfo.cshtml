@@ -4,27 +4,37 @@
     ViewBag.Title = "UserInfo";
 }
 
+<h2>Информация о пользователе</h2>
+
+Аватар
 @Html.Partial("_Avatar", new BeginApplication.Models.AvatarModel
 {
     isAvatarExists = Model.isAvatarExists,
     UserId = Model.UserId
 })
 
-@if (Roles.IsUserInRole(Model.UserName, "moder"))
-{
-    <h2>@Model.UserName, Модератор</h2>
-}
-else if (Roles.IsUserInRole(Model.UserName, "admin"))
-{
-    <h2>@Model.UserName, Администратор</h2>
-}
-else
-{
-    <h2>@Model.UserName, Пользователь</h2>
-}
 <div class="table-responsive userinfo-table">
     <table class="table table-striped">
         <tbody>
+            <tr>
+                <td>Имя: </td> 
+                <td>@Model.UserName</td>
+            </tr>
+            <tr>
+                <td>Роль: </td>
+                @if (Roles.IsUserInRole(Model.UserName, "moder"))
+                {
+                    <td>Модератор</td>
+                }
+                else if (Roles.IsUserInRole(Model.UserName, "admin"))
+                {
+                    <td>Администратор</td>
+                }
+                else
+                {
+                    <td>Пользователь</td>
+                }
+            </tr>
             <tr>
                 <td>Статус: </td>
                 <td>
@@ -50,6 +60,14 @@ else
             <tr>
                 <td>Телефон :</td>
                 <td>@Model.Mobile</td>
+            </tr>
+            <tr>
+                <td>Дата регистрации :</td>
+                <td>@Model.RegistrationDate.ToShortDateString()</td>
+            </tr>
+            <tr>
+                <td>Время регистрации :</td>
+                <td>@Model.RegistrationDate.ToShortTimeString()</td>
             </tr>
         </tbody>
     </table>

@@ -268,12 +268,9 @@ namespace BeginApplication.Repository
                 var userProperty = context.UserProperties.FirstOrDefault(u => u.UserId == id);
                 if (userProperty == null)
                 {
-                    userProperty = new UserProperty();
-                    userProperty.UserId = id;
                     userProperty.ShowEmail = false;
                     userProperty.ShowMobile = false;
 
-                    context.UserProperties.Add(userProperty);
                     context.SaveChanges();
                     return true;
                 }
@@ -312,7 +309,7 @@ namespace BeginApplication.Repository
         {
             var user = context.UserProfiles.FirstOrDefault(u => u.UserId == userId);
 
-            if (user.UserProperty == null) SetPrivateProperties(user.UserId);
+            if (user.UserProperty == null) repository.SetPrivateProperties(user.UserId);
             var result = new PrivateCabinetModel
             {
                 isAvatarExist = user.ImageData == null ? false : true,

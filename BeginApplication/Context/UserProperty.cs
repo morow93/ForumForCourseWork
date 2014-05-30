@@ -16,7 +16,6 @@ namespace BeginApplication.Context
 
         public bool ShowEmail { get; set; }
         public bool ShowMobile { get; set; }
-        public bool AllowSendMessage { get; set; }
 
         [Required]
         public virtual UserProfile User { get; set; }

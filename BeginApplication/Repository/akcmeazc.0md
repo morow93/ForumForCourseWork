@@ -261,28 +261,6 @@ namespace BeginApplication.Repository
             return model;
         }
 
-        public bool SetPrivateProperties(int id)
-        {
-            if (context.UserProfiles.FirstOrDefault(u => u.UserId == id) != null)
-            {
-                var userProperty = context.UserProperties.FirstOrDefault(u => u.UserId == id);
-                if (userProperty == null)
-                {
-                    userProperty = new UserProperty();
-                    userProperty.UserId = id;
-                    userProperty.ShowEmail = false;
-                    userProperty.ShowMobile = false;
-
-                    context.UserProperties.Add(userProperty);
-                    context.SaveChanges();
-                    return true;
-                }
-                return false;
-            }
-            return false;
-            
-        }
-
         public void SetPrivateProperties(PrivatePropertiesModel model, int id)
         {
             var existProperty = context.UserProperties.FirstOrDefault(x => x.UserId == id);
@@ -292,6 +270,7 @@ namespace BeginApplication.Repository
                 context.UserProperties.Add(new UserProperty
                 {
                     UserId = id,
+                    AllowSendMessage = false,
                     ShowEmail = (bool)model.ShowEmail,
                     ShowMobile = (bool)model.ShowMobile
                 });
@@ -311,14 +290,11 @@ namespace BeginApplication.Repository
         public PrivateCabinetModel GetPrivateCabinet(int userId)
         {
             var user = context.UserProfiles.FirstOrDefault(u => u.UserId == userId);
-
-            if (user.UserProperty == null) SetPrivateProperties(user.UserId);
             var result = new PrivateCabinetModel
             {
                 isAvatarExist = user.ImageData == null ? false : true,
                 RegistrationDate = user.RegistrationDate,
-                Email = user.UserProperty.ShowEmail ? (string.IsNullOrEmpty(user.Email) ? "пользователь не указал почту" : user.Email) : "пользователь скрыл почту",
-                Mobile = user.UserProperty.ShowMobile ? (string.IsNullOrEmpty(user.Mobile) ? "пользователь не указал телефон" : user.Mobile) : "пользователь скрыл телефон"
+                
             };         
             var query = context.Likes.Where(lk=>lk.Comment.UserId == userId);
             if (query == null || query.Count() == 0)            

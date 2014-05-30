@@ -13,6 +13,7 @@ namespace BeginApplication.Models
         public string Email { get; set; }
         public string Mobile { get; set; }
         public bool isAvatarExists { get; set; }
+        public DateTime RegistrationDate { get; set; }
     }
 
     public class ShortUserSummary

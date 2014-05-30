@@ -40,6 +40,10 @@
             <table class="table table-striped">
                 <tbody>
                     <tr>
+                        <td>Имя: </td>
+                        <td>@WebSecurity.CurrentUserName</td>
+                    </tr>
+                    <tr>
                         @if (Roles.IsUserInRole("moder"))
                         {
                             <td>Роль: </td>
@@ -55,20 +59,31 @@
                             <td>Роль: </td>
                             <td>Пользователь</td>
                         }
-                </tr>
-                <tr>
-                    <td>Рейтинг :</td>
-                    <td>@Model.UserRating</td>
-                </tr>
-                <tr>
-                    <td>Дата регистрации :</td>
-                    <td>@Model.RegistrationDate.ToShortDateString()</td>
-                </tr>
-                <tr>
-                    <td>Время регистрации :</td>
-                    <td>@Model.RegistrationDate.ToShortTimeString()</td>
-                </tr>
-            </tbody>
+                    </tr>
+                    <tr>
+                        <td>Статус: </td><td>Активен</td>
+                    </tr>
+                    <tr>
+                        <td>Рейтинг :</td>
+                        <td>@Model.UserRating</td>
+                    </tr>
+                    <tr>
+                        <td>Почта :</td>
+                        <td>@Model.Email</td>
+                    </tr>
+                    <tr>
+                        <td>Телефон :</td>
+                        <td>@Model.Mobile</td>
+                    </tr>
+                    <tr>
+                        <td>Дата регистрации :</td>
+                        <td>@Model.RegistrationDate.ToShortDateString()</td>
+                    </tr>
+                    <tr>
+                        <td>Время регистрации :</td>
+                        <td>@Model.RegistrationDate.ToShortTimeString()</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>
