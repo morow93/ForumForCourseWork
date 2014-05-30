@@ -9,10 +9,10 @@
     @Html.ValidationSummary(true)
     
     <fieldset>
-        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Email" })
+        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Email or UserName" })
         @Html.ValidationMessageFor(m => m.UserName)
         <p></p>
-        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Пароль" })
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
         @Html.ValidationMessageFor(m => m.Password)
         <p></p>
         @Html.CheckBoxFor(m => m.RememberMe)

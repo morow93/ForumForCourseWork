@@ -4,7 +4,7 @@
     ViewBag.Title = "Добавить раздел";
 }
 <div class="form-create-section">
-    @using (Ajax.BeginForm("CreateSection", "Admin", Model, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "here-target", OnFailure = "OnFailureCreateSection", OnSuccess = "OnSuccessCreateSection" }, new { @class = "section-form-to-hide" }))
+    @using (Html.BeginForm("CreateSection", "Admin", Model, FormMethod.Post, null))
     {
         <fieldset>
             <div class="row">
@@ -12,7 +12,7 @@
                     <div class="input-group">
                         @Html.TextBoxFor(x => x.SectionTitle, new { @class = "form-control", placeholder = "Название раздела" })
                         <span class="input-group-btn">
-                            <button class="show-hide-form-create-section btn btn-default" type="submit">Создать</button>
+                            <button class="show-hide-form-create-section btn btn-default" type="submit" onclick="return confirm('Вы действительно хотите создать новый раздел?')">Создать новый раздел</button>
                         </span>
                     </div>
                 </div>

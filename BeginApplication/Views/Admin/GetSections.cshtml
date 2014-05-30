@@ -3,8 +3,10 @@
 @{
     ViewBag.Title = "Разделы формума";
 }
-
 Разделы форума
+
+@Html.Partial("_CreateSection", new BeginApplication.Models.ChangeSectionModel())
+
 <div class="container main section-list">
     @foreach (var s in Model)
     {

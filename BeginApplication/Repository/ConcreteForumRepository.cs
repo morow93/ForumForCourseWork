@@ -224,6 +224,9 @@ namespace BeginApplication.Repository
             var result = true;
             try
             {
+                var isExist = context.Sections.FirstOrDefault(s => s.SectionTitle == section.SectionTitle);
+                if (isExist != null) return false;
+
                 context.Sections.Add(section);
                 context.SaveChanges();
             }

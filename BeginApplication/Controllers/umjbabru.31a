@@ -340,6 +340,7 @@ namespace BeginApplication.Controllers
 
                 if (!result) {
                     TempData["failure"] = "Раздел не был добавлен.";
+                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 }
                 else
                 {
@@ -348,7 +349,7 @@ namespace BeginApplication.Controllers
             }
             else
             {
-                TempData["failure"] = "Раздел не был добавлен.";
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
             }
             ModelState.Clear();
             return RedirectToAction("GetSections");
