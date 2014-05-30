@@ -29,31 +29,50 @@
         <fieldset class="changeAvatar">
             @using (Html.BeginForm("ChangeAvatar", "Account", null, FormMethod.Post, new { Model, enctype = "multipart/form-data" }))
             {
-                <input type="file" name="file" />
-                <input type="submit" value="OK" />
+                <input type="file" data-filename-placement="inside" name="file">
+                <button style="margin-top: 3px; margin-bottom: 8px;" type="submit" class="btn btn-success btn-sm">Обновить аватар</button>
             }
         </fieldset>
         
     </div>
     <div class="third-column">
-        @if (Roles.IsUserInRole("moder"))
-        {
-            <text>Роль : Модератор</text>
-        }
-        else if (Roles.IsUserInRole("admin"))
-        {
-            <text>Роль : Администратор</text>
-        }
-        else
-        {
-            <text>Роль : Пользователь</text>
-        }
-        <p>Рейтинг : @Model.UserRating </p>
-        <p>Дата регистрации : @Model.RegistrationDate.ToShortDateString()</p> 
-        <p>Время регистрации : @Model.RegistrationDate.ToShortTimeString()</p>
+        <div style="width: 450px;" class="table-responsive">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        @if (Roles.IsUserInRole("moder"))
+                        {
+                            <td>Роль: </td>
+                            <td>Модератор</td>
+                        }
+                        else if (Roles.IsUserInRole("admin"))
+                        {
+                            <td>Роль: </td>
+                            <td>Администратор</td>
+                        }
+                        else
+                        {
+                            <td>Роль: </td>
+                            <td>Пользователь</td>
+                        }
+                </tr>
+                <tr>
+                    <td>Рейтинг :</td>
+                    <td>@Model.UserRating</td>
+                </tr>
+                <tr>
+                    <td>Дата регистрации :</td>
+                    <td>@Model.RegistrationDate.ToShortDateString()</td>
+                </tr>
+                <tr>
+                    <td>Время регистрации :</td>
+                    <td>@Model.RegistrationDate.ToShortTimeString()</td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
     </div>
 </div>
-
 <div id="user-themes-target">
      @Html.Action("GetThemesByUser", "Account")
 </div>

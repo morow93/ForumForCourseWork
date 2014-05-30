@@ -16,10 +16,10 @@
                              })
                             @if (Roles.IsUserInRole("moder") || Roles.IsUserInRole("admin"))
                             {
-                                @Html.ActionLink("Удалить комментарий", "RemoveComment", "Forum", new { id = c.CommentId, theme = Model.Theme.ThemeId, path = Request.Url.AbsoluteUri }, new { @class = "del-comment-ref" }) 
+                                <button class="btn btn-danger btn-xs" type="button" onclick="location.href='@Url.Action("RemoveComment", "Forum", new { id = c.CommentId, theme = Model.Theme.ThemeId, path = Request.Url.AbsoluteUri })'">Удалить</button>
                                 if (!c.isAdmitted)
                                 {
-                                    @Html.ActionLink(" Допустить", "AdmittComment", "Forum", new { id = c.CommentId, theme = Model.Theme.ThemeId, path = Request.Url.AbsoluteUri }, new { @class = "admit-comment-ref" })
+                                    <button class="btn btn-success btn-xs" type="button" onclick="location.href='@Url.Action("AdmittComment", "Forum", new { id = c.CommentId, theme = Model.Theme.ThemeId, path = Request.Url.AbsoluteUri })'">Одобрить</button>
                                 }
                             }
                         </div>
@@ -59,7 +59,8 @@
                         <div class="col-xs-6 col-xs-height">
                             @if (!c.isAdmitted)
                             {
-                                <small>Данный комментарий пока не прошел проверки</small>
+                                <span class="label label-warning">Данный комментарий пока не прошел проверку</span>
+                                <br />
                             }
                             @c.CommentText                            
                         </div>

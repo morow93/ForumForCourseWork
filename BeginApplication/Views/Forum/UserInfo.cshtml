@@ -9,7 +9,7 @@
     isAvatarExists = Model.isAvatarExists,
     UserId = Model.UserId
 })
- 
+
 @if (Roles.IsUserInRole(Model.UserName, "moder"))
 {
     <h2>@Model.UserName, Модератор</h2>
@@ -22,11 +22,38 @@ else
 {
     <h2>@Model.UserName, Пользователь</h2>
 }
-<p>Статус : @if (Roles.IsUserInRole(Model.UserName, "active")) { <text>Активен</text> } else { <text>Заблокирован</text> }</p>
-<p>Рейтинг : @if (Model.Rating == null) { <text>0</text> } else { <text>@Model.Rating</text> } </p>
-<p>Почта : @Model.Email</p>
-<p>Телефон : @Model.Mobile</p>
-
+<div class="table-responsive userinfo-table">
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <td>Статус: </td>
+                <td>
+                    @if (Roles.IsUserInRole(Model.UserName, "active"))
+                    { <text>Активен</text> }
+                    else
+                    { <text>Заблокирован</text> }
+                </td>
+            </tr>
+            <tr>
+                <td>Рейтинг: </td>
+                <td>
+                    @if (Model.Rating == null)
+                    { <text>0</text> }
+                    else
+                    { <text>@Model.Rating</text> }
+                </td>
+            </tr>
+            <tr>
+                <td>Почта :</td>
+                <td>@Model.Email</td>
+            </tr>
+            <tr>
+                <td>Телефон :</td>
+                <td>@Model.Mobile</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 <div id="user-themes-target">
     @Html.Action("GetThemesByUser", "Account", new { id = Model.UserId })
 </div>
