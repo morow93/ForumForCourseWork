@@ -61,21 +61,16 @@ html {
 	margin-top: 100px;
 }
 
-.topic-link-line {
-	vertical-align: middle;
-}
-
 .topic-link-line  > div{
 	min-height: 50px;
 	line-height: 50%;
-	padding-top: 10px;
+	padding-top: 14px;
   padding-bottom: 10px;
   background-color: #eeeeee;
 	background-color: rgba(0, 0, 175, 0.15);
 	vertical-align: middle;
 	margin-bottom: 2px;
 	height:60px;
-	vertical-align: middle;
 }
 
 .topic-link-line > .col-md-5 {
@@ -291,4 +286,8 @@ h4 {
 	border-right: 1px solid rgba(86,61,124,.2);
 	border-bottom-right-radius: 5px;
 	border-top-right-radius: 5px;
+}
+
+.topic-search {
+	width: 400px;
 }

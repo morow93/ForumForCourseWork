@@ -8,7 +8,7 @@
             @if (User.Identity.IsAuthenticated && String.IsNullOrEmpty(Model.SearchingString))
             {
                 <p>
-                    @Html.ActionLink("Добавить тему", "AddTheme", "Forum", new { id = Model.Section.SectionId }, null)
+                    <button class="btn btn-success btn-sm" type="button" onclick="location.href='@Url.Action("AddTheme", "Forum", new { id = Model.Section.SectionId })'">Добавить тему</button>
                 </p>
             }
         </div>
