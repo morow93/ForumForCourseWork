@@ -151,7 +151,7 @@ namespace BeginApplication.Controllers
 
         public ActionResult AddTheme(int id)
         {
-            if (!Roles.IsUserInRole("admin"))
+            if (!Roles.IsUserInRole("admin") && !Roles.IsUserInRole("moder"))
             {
                 var isExist = repository.Themes.Where(t => t.UserId == WebSecurity.CurrentUserId).OrderByDescending(t => t.CreationDate).FirstOrDefault();
                 if (isExist != null)
