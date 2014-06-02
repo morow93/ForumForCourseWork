@@ -309,7 +309,7 @@ namespace BeginApplication.Controllers
             client.Host = "smtp.gmail.com";
             client.Port = 587;
 
-            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("derchepur@gmail.com", "1bladerunner1*");
+            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("derchepur@gmail.com", "******");
             client.UseDefaultCredentials = false;
             client.Credentials = credentials;
 
