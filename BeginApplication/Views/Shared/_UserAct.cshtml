@@ -15,4 +15,21 @@ else
         @Html.ActionLink(Model.UserName, "UserInfo", "Forum", new { id = Model.UserId }, new { id = "user-name", title = "Инфо" })
     }
 }
+@if (Model.Roles != null && Model.Roles.Count != 0)
+{
+    if (Model.Roles.Contains("admin"))
+    {
+        @:Роль: Администратор
+    }else if(Model.Roles.Contains("moder")){
+        @:Роль: Модератор
+    }else{
+        @:Роль: Пользователь
+    }
+}
+else
+{
+    @:Роль: Пользователь
+}
+
+
 

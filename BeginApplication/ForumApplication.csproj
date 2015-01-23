@@ -209,6 +209,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Context\MyUserInRole.cs" />
+    <Compile Include="Context\MyUserRole.cs" />
     <Compile Include="Dependency\Bootstrapper.cs" />
     <Compile Include="Context\Comment.cs" />
     <Compile Include="Context\Like.cs" />

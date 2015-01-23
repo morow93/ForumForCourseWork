@@ -23,7 +23,9 @@ namespace BeginApplication.Context
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Like> Likes { get; set; }
 
-        public DbSet<webpages_Membership> webpages_Memberships { get; set; }        
+        public DbSet<webpages_Membership> webpages_Memberships { get; set; }
+        //public DbSet<MyUserRole> MyUserRoles { get; set; }
+        //public DbSet<MyUserInRole> MyUserInRoles { get; set; }    
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

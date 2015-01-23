@@ -65,7 +65,7 @@ namespace BeginApplication.Controllers
             var roles = (SimpleRoleProvider)Roles.Provider;
             foreach (var item in model.PagedThemes)
             {
-                item.Roles = item.UserName == null ? new List<string>() : roles.GetRolesForUser(item.UserName).ToList();
+                item.Roles = item.UserName == null ? null : roles.GetRolesForUser(item.UserName).ToList();
             }
 
             int countPages = (int)Math.Ceiling((double)model.TotalItems/(double)10);
@@ -91,10 +91,8 @@ namespace BeginApplication.Controllers
             int? curUserId = null;
             if (Request.IsAuthenticated && WebSecurity.UserExists(WebSecurity.CurrentUserName)) curUserId = WebSecurity.CurrentUserId;
             var commentsByTheme = repository.GetCommentsByTheme(id, showAll, curUserId);
-            foreach (var item in commentsByTheme)
-            {
-                item.Roles = item.UserName == null ? new List<string>() : roles.GetRolesForUser(item.UserName).ToList();
-            }
+
+
 
             var model = new CommentsWithThemeModel
             {
@@ -104,7 +102,7 @@ namespace BeginApplication.Controllers
                 {
                     UserId = x.User.UserId,
                     UserName = x.User.UserName ?? "Удаленный пользователь",
-                    //Roles = x.User.UserName == null ? new List<string>() : roles.GetRolesForUser(x.User.UserName).ToList(),
+                    Roles = x.User.UserName == null ? null : roles.GetRolesForUser(x.User.UserName).ToList(),
                     ThemeId = x.ThemeId,
                     ThemeTitle = x.ThemeTitle,
                     ThemeText = x.ThemeText,
@@ -112,18 +110,6 @@ namespace BeginApplication.Controllers
                     isAvatarExists = x.User.ImageData == null ? false : true
                 }).FirstOrDefault()
             };
-            if (model.Theme.UserName != null)
-            {
-                var tmpRoles = roles.GetRolesForUser(model.Theme.UserName);
-                if (tmpRoles == null)
-                {
-                    model.Theme.Roles = new List<string>();
-                }
-                else
-                {
-                    model.Theme.Roles = tmpRoles.ToList();
-                }
-            }
 
             int countPages = (int)Math.Ceiling((double)model.TotalItems/(double)10);
             if (countPages != 0 && page > countPages)

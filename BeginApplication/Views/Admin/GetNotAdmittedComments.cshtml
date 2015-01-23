@@ -18,7 +18,7 @@
         <div class="not-admitted-comment" style="border: 1px solid; padding: 5px; margin: 5px;">
             <p>Тема : @Html.ActionLink(comment.ThemeTitle, "Theme", "Forum", new { id = comment.ThemeId }, null)</p>
             <p>Содеражание сообщения : @comment.CommentText</p>
-            <p>Кем отправлено : @Html.Partial("_UserAct", new BeginApplication.Models.ShortUserSummary { UserId = comment.UserId, UserName = comment.UserName })</p>
+            <p>Кем отправлено : @Html.Partial("_UserAct", new BeginApplication.Models.ShortUserSummary { UserId = comment.UserId, UserName = comment.UserName, Roles = comment.Roles })</p>
             <p>Когда отправлено : @comment.CreationDate</p>
             <button class="btn btn-danger btn-sm" type="button" onclick="location.href='@Url.Action("RemoveComment", "Admin", new { id = comment.CommentId, path = Request.Url.AbsoluteUri })'">Удалить комментарий</button>
             <button class="btn btn-success btn-sm" type="button" onclick="location.href='@Url.Action("AdmittComment", "Admin", new { id = comment.CommentId, path = Request.Url.AbsoluteUri })'">Допустить</button>

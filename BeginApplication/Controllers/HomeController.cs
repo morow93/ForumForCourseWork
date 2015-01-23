@@ -10,6 +10,7 @@ using BeginApplication.Context;
 using BeginApplication.Repository;
 using BeginApplication.Filters;
 using WebMatrix.WebData;
+using System.Web.Security;
 
 namespace BeginApplication.Controllers
 {
@@ -29,8 +30,16 @@ namespace BeginApplication.Controllers
         {
             int? curUserId = null;
             if (Request.IsAuthenticated && WebSecurity.UserExists(WebSecurity.CurrentUserName)) curUserId = WebSecurity.CurrentUserId;
-            
-            return View(new ThemesModel { Themes = repository.GetRecentThemes(5, curUserId) });    
+            ;
+            var model = repository.GetRecentThemes(5, curUserId);
+
+            var roles = (SimpleRoleProvider)Roles.Provider;
+            foreach (var item in model)
+            {
+                item.Roles = item.UserName == null ? new List<string>() : roles.GetRolesForUser(item.UserName).ToList();
+            }
+
+            return View(new ThemesModel { Themes = model });    
         }
 
         [AllowAnonymous]

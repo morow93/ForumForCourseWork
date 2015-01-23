@@ -10,7 +10,8 @@
             <strong>Автор темы:</strong> @Html.Partial("_UserAct", new BeginApplication.Models.ShortUserSummary
                 {
                     UserId = Model.Theme.UserId,
-                    UserName = Model.Theme.UserName
+                    UserName = Model.Theme.UserName,
+                    Roles = Model.Theme.Roles
                 })
         </div>
         <div class="col-sm-2 col-xs-height">

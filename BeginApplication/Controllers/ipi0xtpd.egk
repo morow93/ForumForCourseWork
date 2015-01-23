@@ -96,12 +96,6 @@ namespace BeginApplication.Controllers
                     RegistrationDate = x.RegistrationDate
                 }).ToPagedList(page, 10)
             };
-
-            var roles = (SimpleRoleProvider)Roles.Provider;
-            foreach (var item in model.PagedUsers)
-            {
-                item.Roles = item.UserName == null ? new List<string>() : roles.GetRolesForUser(item.UserName).ToList();
-            }
             
             int countPages = (int)Math.Ceiling((double)model.TotalItems/(double)10);
 
@@ -130,13 +124,8 @@ namespace BeginApplication.Controllers
         {
             var notAdmittedComments = repository.GetNotAdmittedComments();
 
+            var roles = (SimpleRoleProvider)Roles.Provider; 
             var model = new CommentsAdmittedModel { PagedComments = (PagedList<CommentAdmittedInfo>)notAdmittedComments.ToPagedList(page, 10), TotalItems = notAdmittedComments.Count };
-
-            var roles = (SimpleRoleProvider)Roles.Provider;
-            foreach (var item in model.PagedComments)
-            {
-                item.Roles = item.UserName == null ? new List<string>() : roles.GetRolesForUser(item.UserName).ToList();
-            }
 
             int countPages = (int)Math.Ceiling((double)model.TotalItems / (double)10);
             if (countPages != 0 && page > countPages)

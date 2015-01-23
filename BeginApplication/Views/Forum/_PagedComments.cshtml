@@ -12,7 +12,8 @@
                             @Html.Partial("_UserAct", new BeginApplication.Models.ShortUserSummary
                              {
                                  UserId = c.UserId,
-                                 UserName = c.UserName
+                                 UserName = c.UserName,
+                                 Roles = c.Roles
                              })
                             @if (Roles.IsUserInRole("moder") || Roles.IsUserInRole("admin"))
                             {

@@ -20,6 +20,7 @@ namespace BeginApplication.Models
     {
         public int UserId { get; set; }
         public String UserName { get; set; }
+        public List<String> Roles { get; set; }
         public DateTime CreationDate { get; set; }
         public String ThemeTitle { get; set; }
         public int ThemeId { get; set; }

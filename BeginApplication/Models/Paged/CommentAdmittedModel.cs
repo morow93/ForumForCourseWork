@@ -17,6 +17,7 @@ namespace BeginApplication.Models.Paged
 
         public int UserId { get; set; }
         public string UserName { get; set; }
+        public List<String> Roles { get; set; }
     }
 
     public class CommentsAdmittedModel
